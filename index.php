@@ -52,7 +52,7 @@ if($linhas == 0){
 
 	        success:function(result){
 	            if(result == 'Recuperado'){
-	            	alert('Confira sua senha no email!')
+	            	alert('Confira sua senha no email de cadastro!')
 	            }else{
 	            	alert(result)
 	            }

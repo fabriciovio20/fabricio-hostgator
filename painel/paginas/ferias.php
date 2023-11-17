@@ -189,12 +189,20 @@ $nivel_usuario = @$_SESSION['nivel'];
         function verificarDataInicio() {
             var dataInicio = $('#data_ini').val();
             var dataAtual = new Date().toISOString().split('T')[0];
+			var novaData = new Date(dataAtual);
+			novaData.setDate(novaData.getDate() + 30);
+			var novaDataFormatada = novaData.toISOString().split('T')[0];
 
             if (dataInicio < dataAtual) {
                 // Exibe mensagem de erro com estilo
-				alert("Data menor do que atual, favor realizar alteração!!")
+				alert("Data menor que atual, favor realizar alteração!!")
                 return false; // Impede o envio do formulário
-            }
+            }else if (dataInicio < novaDataFormatada){
+
+				alert("Favor procurar RH, programação férias menor que 30 dias!!");
+				return false;
+			}
+
 
             return true; // Permite o envio do formulário
 			

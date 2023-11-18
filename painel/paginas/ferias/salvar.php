@@ -166,7 +166,9 @@ if($token != ""){
     $mensagem .='<p style="background: yellow; width: 50%">Obs.: Favor responder e-mail com todos que se encontram em cópia;</p>'.'<br><br>';
     $mensagem .='Qualquer duvida, estamos a disposição!!';
     $mensagem .='<br><br>';
-    $mensagem .='Muito Obrigado!!';
+    $mensagem .='Atenciosamente,';
+    $mensagem .='<br><br>';
+    $mensagem .='Recursos Humanos!!';
     $mensagem .= '</body></html>';
 
     // Definir cabeçalhos para e-mail HTML

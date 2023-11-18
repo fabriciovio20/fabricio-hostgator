@@ -5,9 +5,11 @@ date_default_timezone_set('America/Sao_Paulo');
 
 //dados conexão bd local
 $servidor = 'localhost';
-$banco = 'hrauto46_clinica';
-$usuario = 'hrauto46_fabricio';
-$senha = '@2087Fabri';
+$banco = 'clinica';
+$usuario = 'root';
+$senha = '';
+$email_rh1 = 'fabricio.farias@jsl.com.br';
+$email_ferias1 = 'fabriciovio10@gmail.com';
 
 try {
 	$pdo = new PDO("mysql:dbname=$banco;host=$servidor;charset=utf8", "$usuario", "$senha");
@@ -28,6 +30,8 @@ $nome_sistema = 'Nome Sistema';
 $email_sistema = 'contato@hugocursos.com.br';
 $telefone_sistema = '(31)97527-5084';
 
+
+//tabela config
 $query = $pdo->query("SELECT * from config");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
@@ -61,4 +65,22 @@ if($ativo_sistema != 'Sim' and $ativo_sistema != ""){
 $whatsapp_sistema = '55'.preg_replace('/[ ()-]+/' , '' , $telefone_sistema);
 
 }	
+
+
+//tabela config sistemas
+
+$query1 = $pdo->query("SELECT * from config_sistema");
+$res1 = $query1->fetchAll(PDO::FETCH_ASSOC);
+$linhas = @count($res1);
+if($linhas == 0){
+	$pdo->query("INSERT INTO config_sistema SET email_rh1 = '$email_rh1', email_ferias1 = '$email_ferias1'");
+}else{
+$email_rh1 = $res1[0]['email_rh1'];
+$email_rh2 = $res1[0]['email_rh2'];
+$email_rh3 = $res1[0]['email_rh3'];
+$email_ferias1 = $res1[0]['email_ferias1'];
+$email_ferias2 = $res1[0]['email_ferias2'];
+$email_ferias3 = $res1[0]['email_ferias3'];
+};
+
  ?>

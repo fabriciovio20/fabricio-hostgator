@@ -431,6 +431,7 @@ $data_atual = date('Y-m-d');
 							</a>
 							<ul class="dropdown-menu drp-mnu">
 								<li class="<?php echo $configuracoes ?>"> <a href="" data-toggle="modal" data-target="#modalConfig"><i class="fa fa-cog"></i> Configurações</a> </li> 
+								<li class="<?php echo $configuracoes_sistema ?>"> <a href="" data-toggle="modal" data-target="#modalConfigSistema"><i class="fa fa-laptop"></i> Configurações Sistema</a> </li> 
 								<li> <a href="" data-toggle="modal" data-target="#modalPerfil"><i class="fa fa-user"></i> Perfil</a> </li> 								
 								<li> <a href="logout.php"><i class="fa fa-sign-out"></i> Sair</a> </li>
 							</ul>
@@ -771,6 +772,68 @@ $data_atual = date('Y-m-d');
 
 
 
+
+
+<!-- Modal Config Sistema-->
+<div class="modal fade" id="modalConfigSistema" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel">Editar Configurações Sistema</h4>
+				<button id="btn-fechar-config" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form id="form-configsistema">
+			<div class="modal-body">
+				
+
+					<div class="row">
+						<div class="col-md-4">							
+							<label>E-mail RH C.c:</label>							
+							<input type="email" class="form-control" id="email_rh1" name="email_rh1" placeholder="Email para cópia RH time Filial" value="<?php echo @$email_rh1 ?>" >
+						</div>
+
+						<div class="col-md-4">							
+							<label>C.c 2:</label>							
+							<input type="email" class="form-control" id="email_rh2" name="email_rh2" placeholder="Email para cópia RH time Filial 2" value="<?php echo @$email_rh2 ?>" >
+						</div>
+
+						<div class="col-md-4">							
+							<label>C.c 3:</label>							
+							<input type="email" class="form-control" id="email_rh3" name="email_rh3" placeholder="Email para cópia RH time Filial 3" value="<?php echo @$email_rh3 ?>" >
+						</div>
+
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-4">							
+							<label>E-mail Férias C.c:</label>							
+							<input type="email" class="form-control" id="email_ferias1" name="email_ferias1" placeholder="Email para envio Férias" value="<?php echo @$email_ferias1 ?>" >
+						</div>
+
+						<div class="col-md-4">							
+							<label>C.c 2:</label>							
+							<input type="email" class="form-control" id="email_ferias2" name="email_ferias2" placeholder="Email para envio Férias 2" value="<?php echo @$email_ferias2 ?>" >
+						</div>
+
+						<div class="col-md-4">							
+							<label>C.c 3:</label>							
+							<input type="email" class="form-control" id="email_ferias3" name="email_ferias3" placeholder="Email para envio Férias 3" value="<?php echo @$email_ferias3 ?>" >
+						</div>
+
+					</div>
+
+				<small><div id="msg-config" align="center"></div></small>
+			</div>
+			<div class="modal-footer">       
+				<button type="submit" class="btn btn-primary">Salvar</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 
@@ -1194,6 +1257,47 @@ $data_atual = date('Y-m-d');
 	});
 </script>
 
+
+
+
+
+<script type="text/javascript">
+	$("#form-configsistema").submit(function () {
+
+		event.preventDefault();
+		var formData = new FormData(this);
+
+		$.ajax({
+			url: "editar-configsistema.php",
+			type: 'POST',
+			data: formData,
+
+			success: function (mensagem) {
+				$('#msg-configsistema').text('');
+				$('#msg-configsistema').removeClass()
+				if (mensagem.trim() == "Editado com Sucesso") {
+
+					$('#btn-fechar-configsistema').click();
+					location.reload();				
+						
+
+				} else {
+					
+					$('#msg-configsistema').addClass('text-danger')
+					$('#msg-configsistema').text(mensagem)
+				}
+
+
+			},
+
+			cache: false,
+			contentType: false,
+			processData: false,
+
+		});
+
+	});
+</script>
 
 
 

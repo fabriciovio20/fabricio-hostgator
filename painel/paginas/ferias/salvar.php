@@ -8,6 +8,12 @@ $usuario_modi = $_SESSION['id'];
 $_SESSION['email_ferias'] = $email_ferias;
 $_SESSION['email'] = $email_sistema;
 $data_modi = date('y/m/d H:i:s');
+$_SESSION['email_rh1'] = $email_rh1;
+$_SESSION['email_rh2'] = $email_rh2;
+$_SESSION['email_rh3'] = $email_rh3;
+$_SESSION['email_ferias1'] = $email_ferias1;
+$_SESSION['email_ferias2'] = $email_ferias2;
+$_SESSION['email_ferias3'] = $email_ferias3;
 
 
 $funcionario = $_POST['funcionario'];
@@ -128,9 +134,12 @@ if($token != ""){
     
     }
 
-    if($email_sistema != "" || $email_ferias != ""){
+    if($email_sistema != "" || $email_rh1 != "" || $email_ferias1 != ""){
 
-    $destinatario = $email_ferias;
+    $destinatarios = array($email_ferias1, $email_ferias2, $email_ferias3);
+    $cc = array($email_rh1, $email_rh2, $email_rh3);
+
+    $destinatario = implode(", ", $destinatarios);
     $assunto = 'ALTERAÇÃO FÉRIAS - '.$registro.' - '.$func_nome;
 
     // Construir a mensagem HTML com a tabela
@@ -163,6 +172,10 @@ if($token != ""){
     // Definir cabeçalhos para e-mail HTML
     $cabecalhos = "From: ".$email_sistema."\r\n";
     $cabecalhos .= "Content-type: text/html; charset=UTF-8\r\n";
+
+    if (!empty($cc)) {
+        $cabecalhos .= "Cc: " . implode(", ", $cc) . "\r\n";
+    }
 
     @mail($destinatario, $assunto, $mensagem, $cabecalhos);
     }

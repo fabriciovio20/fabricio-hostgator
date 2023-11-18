@@ -700,10 +700,6 @@ $data_atual = date('Y-m-d');
 						</div>
 
 						
-					<div class="col-md-5">					
-								<label>E-mail Agendamento Férias</label>
-								<input type="text" class="form-control" id="email_ferias" name="email_ferias" placeholder="E-mail resp. férias" value="<?php echo @$email_ferias ?>">							
-					</div>
 					</div>
 
 
@@ -1282,7 +1278,7 @@ $data_atual = date('Y-m-d');
 						
 
 				} else {
-					
+
 					$('#msg-configsistema').addClass('text-danger')
 					$('#msg-configsistema').text(mensagem)
 				}

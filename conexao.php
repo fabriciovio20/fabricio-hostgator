@@ -9,6 +9,7 @@ $banco = 'hrauto46_clinica';
 $usuario = 'hrauto46_fabricio';
 $senha = '@2087Fabri';
 
+
 try {
 	$pdo = new PDO("mysql:dbname=$banco;host=$servidor;charset=utf8", "$usuario", "$senha");
 } catch (Exception $e) {
@@ -51,7 +52,6 @@ $token = $res[0]['token'];
 $instancia = $res[0]['instancia'];
 $horas_confirmacao = $res[0]['horas_confirmacao'];
 $marca_dagua = $res[0]['marca_dagua'];
-$email_ferias = $res[0]['email_ferias'];
 $ativo_sistema = $res[0]['ativo'];
 
 

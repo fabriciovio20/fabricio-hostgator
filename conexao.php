@@ -5,9 +5,9 @@ date_default_timezone_set('America/Sao_Paulo');
 
 //dados conexão bd local
 $servidor = 'localhost';
-$banco = 'hrauto46_clinica';
-$usuario = 'hrauto46_fabricio';
-$senha = '@2087Fabri';
+$banco = 'clinica';
+$usuario = 'root';
+$senha = '';
 
 
 try {

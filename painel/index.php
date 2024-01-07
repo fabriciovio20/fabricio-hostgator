@@ -213,6 +213,8 @@ $data_atual = date('Y-m-d');
 									<li class="<?php echo $ferias ?>"><a href="index.php?pagina=ferias"><i class="fa fa-angle-right"></i> Ferias</a></li>
 
 									<li class="<?php echo $ocorrencias ?>"><a href="index.php?pagina=ocorrencias"><i class="fa fa-angle-right"></i> Ocorrencias</a></li>
+
+									<li class="<?php echo $mensagem ?>"><a href="index.php?pagina=mensagem"><i class="fa fa-angle-right"></i> Mensagem</a></li>
 									
 								</ul>
 							</li>

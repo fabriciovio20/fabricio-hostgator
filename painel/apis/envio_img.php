@@ -16,12 +16,14 @@ curl_setopt_array($curl, array(
   'to' => $telefone_envio,
   'message' => $mensagem,
   'agendamento' => $data_agd2,
+  'descricao' => $mensagem,
+  'file' => 'https://hrautomate-tec.com/painel/images/perfil/'.$arquivo,
+  'sandbox' => 'false'
   ),
 ));
 
 $response = curl_exec($curl);
-$result = json_decode($response, true);
-$messageId = $result['id']; // Usando o ID retornado pela API
+
 curl_close($curl);
 
 ?>

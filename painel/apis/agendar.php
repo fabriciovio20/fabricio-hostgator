@@ -1,4 +1,5 @@
 <?php
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
@@ -20,8 +21,7 @@ curl_setopt_array($curl, array(
 ));
 
 $response = curl_exec($curl);
-$result = json_decode($response, true);
-$messageId = $result['id']; // Usando o ID retornado pela API
+
 curl_close($curl);
 
 ?>

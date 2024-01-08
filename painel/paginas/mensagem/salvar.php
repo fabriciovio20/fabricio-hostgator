@@ -16,6 +16,7 @@ $telefone = @$res2[0]['telefone'];
 $query = $pdo->query("SELECT * FROM $tabela where id = '$id'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
+$foto = "";
 if($total_reg > 0){
 	$foto = $res[0]['foto'];
 }
@@ -61,9 +62,15 @@ $query->execute();
 
 echo 'Salvo com Sucesso';
 
-if($token != ""){
+if($token != "" and $foto ==""){
 
     $telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+    $mensagem = $msg_env;
+	$data_agd2 = $data_envio;
+    require("../../apis/agendar.php");
+	
+}else{
+	$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
     $mensagem = $msg_env;
     $data_agd2 = $data_envio;
     $arquivo = $foto;

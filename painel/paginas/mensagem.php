@@ -45,11 +45,10 @@ if(@$mensagem == 'ocultar'){
 				
 
 					<div class="row">
-						<div class="col-md-4">							
+						<div class="col-md-5">							
 								<label>Data Mensagem</label>
 								<input type="datetime-local" class="form-control" id="data_envio" name="data_envio" required>							
 						</div>
-
 						<div class="col-md-4">							
 							<label>Filial</label>
 							<select class="form-control" name="filial" id="filial">
@@ -60,25 +59,19 @@ if(@$mensagem == 'ocultar'){
 							</select>							
 						</div>
 						<div class="row">
-
 						<div class="col-md-8">							
 								<label>Foto</label>
 								<input type="file" class="form-control" id="foto_perfil" name="foto" value="<?php echo $foto_usuario ?>" onchange="carregarImgPerfil()">							
 						</div>
-
 						<div class="col-md-4">								
 							<img src="images/perfil/sem-foto.jpg"  width="80px" id="target-usu">								
 							
 						</div>
-
 						<div class="row">
-						<div class="row">
-
 						<div class="col-md-12">							
 								<label>Mensagem a ser enviada</label>
 								<textarea style="resize: vertical;" class="form-control" id="msg_env" name="msg_env" placeholder="Digite sua mensagem aqui" rows="4"></textarea>						
 						</div>
-						<div class="row">
 
 						<div class="col-md-6" style="margin-top: 22px">							
 								<button type="submit" class="btn btn-primary">Salvar</button>					
@@ -111,9 +104,10 @@ if(@$mensagem == 'ocultar'){
 		$('#id').val('');		
 		$('#data_envio').val('');
 		$('#filial').val('todos');
-		$('#msg_env').val('');					
+		$('#msg_env').val('');		
+		$('#target-usu').attr('src', 'images/perfil/sem-foto.jpg');			
         }
-</script>	
+</script>
 
 
 <script type="text/javascript">
@@ -137,199 +131,3 @@ if(@$mensagem == 'ocultar'){
 </script>
 
 
-
-
-
-
- <script type="text/javascript">
-	$("#form-perfil").submit(function () {
-
-		event.preventDefault();
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: "editar-perfil.php",
-			type: 'POST',
-			data: formData,
-
-			success: function (mensagem) {
-				$('#msg-perfil').text('');
-				$('#msg-perfil').removeClass()
-				if (mensagem.trim() == "Editado com Sucesso") {
-
-					$('#btn-fechar-perfil').click();
-					location.reload();				
-						
-
-				} else {
-
-					$('#msg-perfil').addClass('text-danger')
-					$('#msg-perfil').text(mensagem)
-				}
-
-
-			},
-
-			cache: false,
-			contentType: false,
-			processData: false,
-
-		});
-
-	});
-</script>
-
-
-
-
-
-
- <script type="text/javascript">
-	$("#form-config").submit(function () {
-
-		event.preventDefault();
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: "editar-config.php",
-			type: 'POST',
-			data: formData,
-
-			success: function (mensagem) {
-				$('#msg-config').text('');
-				$('#msg-config').removeClass()
-				if (mensagem.trim() == "Editado com Sucesso") {
-
-					$('#btn-fechar-config').click();
-					location.reload();				
-						
-
-				} else {
-
-					$('#msg-config').addClass('text-danger')
-					$('#msg-config').text(mensagem)
-				}
-
-
-			},
-
-			cache: false,
-			contentType: false,
-			processData: false,
-
-		});
-
-	});
-</script>
-
-
-
-
-
-<script type="text/javascript">
-	$("#form-configsistema").submit(function () {
-
-		event.preventDefault();
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: "editar-configsistema.php",
-			type: 'POST',
-			data: formData,
-
-			success: function (mensagem) {
-				$('#msg-configsistema').text('');
-				$('#msg-configsistema').removeClass()
-				if (mensagem.trim() == "Editado com Sucesso") {
-
-					$('#btn-fechar-configsistema').click();
-					location.reload();				
-						
-
-				} else {
-
-					$('#msg-configsistema').addClass('text-danger')
-					$('#msg-configsistema').text(mensagem)
-				}
-
-
-			},
-
-			cache: false,
-			contentType: false,
-			processData: false,
-
-		});
-
-	});
-</script>
-
-
-
-<script type="text/javascript">
-	function carregarImgLogo() {
-    var target = document.getElementById('target-logo');
-    var file = document.querySelector("#foto-logo").files[0];
-    
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            target.src = reader.result;
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-
-        } else {
-            target.src = "";
-        }
-    }
-</script>
-
-
-
-
-
-<script type="text/javascript">
-	function carregarImgLogoRel() {
-    var target = document.getElementById('target-logo-rel');
-    var file = document.querySelector("#foto-logo-rel").files[0];
-    
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            target.src = reader.result;
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-
-        } else {
-            target.src = "";
-        }
-    }
-</script>
-
-
-
-
-
-<script type="text/javascript">
-	function carregarImgIcone() {
-    var target = document.getElementById('target-icone');
-    var file = document.querySelector("#foto-icone").files[0];
-    
-        var reader = new FileReader();
-
-        reader.onloadend = function () {
-            target.src = reader.result;
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-
-        } else {
-            target.src = "";
-        }
-    }
-</script>

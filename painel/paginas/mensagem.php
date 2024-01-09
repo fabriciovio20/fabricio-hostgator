@@ -99,6 +99,7 @@ if(@$mensagem == 'ocultar'){
 <script type="text/javascript">var pag = "<?=$pag?>"</script>
 <script src="js/ajax.js"></script>
 
+
 <script>
         function limpar(){
 		$('#id').val('');		

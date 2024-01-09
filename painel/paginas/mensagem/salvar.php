@@ -8,9 +8,6 @@ $filial = $_POST['filial'];
 $msg_env = $_POST['msg_env'];
 $id = $_POST['id'];
 
-$query2 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
-$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-$telefone = @$res2[0]['telefone'];
 
 //validar troca da foto
 $query = $pdo->query("SELECT * FROM $tabela where id = '$id'");
@@ -31,7 +28,7 @@ $imagem_temp = @$_FILES['foto']['tmp_name'];
 
 if(@$_FILES['foto']['name'] != ""){
 	$ext = pathinfo($nome_img, PATHINFO_EXTENSION);   
-	if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif' or $ext == 'pdf'){ 
+	if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif' or $ext == 'pdf' or $ext == 'mp4'){ 
         $foto = '';
 			//EXCLUO A FOTO ANTERIOR
 			if($foto != ""){
@@ -62,22 +59,32 @@ $query->execute();
 
 echo 'Salvo com Sucesso';
 
-if($token != "" and $foto ==""){
 
-    $telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-    $mensagem = $msg_env;
-	$data_agd2 = $data_envio;
-    require("../../apis/agendar.php");
-	
-}else{
-	$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-    $mensagem = $msg_env;
-    $data_agd2 = $data_envio;
-    $arquivo = $foto;
-    require("../../apis/envio_img.php");
+$query2 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
+$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+$linhas = @count($res2);
+if($linhas > 0){
+	for($i=0; $i<$linhas; $i++){
+		$telefone = @$res2[$i]['telefone'];
+
+		if($token != "" and $foto ==""){
+
+			$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+			$mensagem = $msg_env;
+			$data_agd2 = $data_envio;
+			require("../../apis/agendar.php");
+			
+		}else{
+			$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+			$mensagem = $msg_env;
+			$data_agd2 = $data_envio;
+			$arquivo = $foto;
+			require("../../apis/envio_img.php");
+		}
+
+
+	}
 }
-	
-
 
 
  ?>

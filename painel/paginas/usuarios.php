@@ -225,7 +225,7 @@ if(@$usuarios == 'ocultar'){
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir"></span></h4>
+				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir1"></span></h4>
 				<button id="btn-fechar" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -255,7 +255,7 @@ if(@$usuarios == 'ocultar'){
 					<input type="hidden" class="form-control" id="id" name="id">					
 
 				<br>
-				<small><div id="mensagem" align="center"></div></small>
+				<small><div id="mensagem1" align="center"></div></small>
 			</div>
 			
 			</form>
@@ -356,8 +356,8 @@ $(document).ready(function() {
     });
 
 function importar() {
-    $('#mensagem').text('');
-    $('#titulo_inserir').text('Inserir Registro');
+    $('#mensagem1').text('');
+    $('#titulo_inserir1').text('Inserir Registro');
     $('#modalForm1').modal('show');
 
     var form = document.getElementById('form2');

@@ -10,7 +10,6 @@ if(@$mensagem == 'ocultar'){
 <a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Mensagens</a>
 
 
-
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
 		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa fa-trash-o"></span> Deletar</a>
 
@@ -91,8 +90,6 @@ if(@$mensagem == 'ocultar'){
 		</div>
 	</div>
 </div>
-
-
 
 
 

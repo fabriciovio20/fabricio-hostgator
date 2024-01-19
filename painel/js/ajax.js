@@ -25,12 +25,7 @@
         $('#titulo_inserir').text('Inserir Registro');
         $('#modalForm').modal('show');
 
-    }
-    
-    
-
-
-
+    }    
 
 
 
@@ -38,6 +33,8 @@
 
         event.preventDefault();
         var formData = new FormData(this);
+
+        showLoading();
 
         $.ajax({
             url: 'paginas/' + pag + "/salvar.php",
@@ -51,11 +48,13 @@
 
                     $('#btn-fechar').click();
                     listar();  
+                    hideLoading()
 
                 } else {
 
                     $('#mensagem').addClass('text-danger')
                     $('#mensagem').text(mensagem)
+                    hideLoading()
                 }
 
 
@@ -68,6 +67,8 @@
         });
 
     });
+
+
 
 
 

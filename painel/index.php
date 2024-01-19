@@ -19,14 +19,13 @@ $query = $pdo->query("SELECT * from usuarios where id = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){
+	$registro_usuario = $res[0]['registro'];
 	$nome_usuario = $res[0]['nome'];
 	$email_usuario = $res[0]['email'];
 	$telefone_usuario = $res[0]['telefone'];
 	$senha_usuario = $res[0]['senha'];
 	$nivel_usuario = $res[0]['nivel'];
 	$foto_usuario = $res[0]['foto'];
-	$endereco_usuario = $res[0]['endereco'];
-	$atendimento_usuario = $res[0]['atendimento'];
 }
 
 $data_atual = date('Y-m-d');
@@ -175,10 +174,6 @@ $data_atual = date('Y-m-d');
 								</a>
 								<ul class="treeview-menu">
 									<li class="<?php echo $usuarios ?>"><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
-									
-									<li class="<?php echo $funcionarios2 ?>"><a href="index.php?pagina=funcionarios2"><i class="fa fa-angle-right"></i> Funcionários</a></li>
-
-									<li class="<?php echo $pacientes ?>"><a href="index.php?pagina=pacientes"><i class="fa fa-angle-right"></i> Pacientes</a></li>
 								</ul>
 							</li>
 
@@ -190,29 +185,11 @@ $data_atual = date('Y-m-d');
 								</a>
 								<ul class="treeview-menu">
 
-									<li class="<?php echo $procedimentos ?>"><a href="index.php?pagina=procedimentos"><i class="fa fa-angle-right"></i> Procedimentos</a></li>
-
-									<li class="<?php echo $convenios ?>"><a href="index.php?pagina=convenios"><i class="fa fa-angle-right"></i> Convênio / Plano</a></li>
-
 									<li class="<?php echo $cargos ?>"><a href="index.php?pagina=cargos"><i class="fa fa-angle-right"></i> Cargos</a></li>
-
-									<li class="<?php echo $formas_pgto ?>"><a href="index.php?pagina=formas_pgto"><i class="fa fa-angle-right"></i> Formas de Pagamento</a></li>
 
 									<li class="<?php echo $grupo_acessos ?>"><a href="index.php?pagina=grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
 
 									<li class="<?php echo $acessos ?>"><a href="index.php?pagina=acessos"><i class="fa fa-angle-right"></i> Acessos</a></li>
-
-
-									<li class="<?php echo $frequencias ?>"><a href="index.php?pagina=frequencias"><i class="fa fa-angle-right"></i> Frequências</a></li>
-
-
-									<li class="<?php echo $grupos_ana ?>"><a href="index.php?pagina=grupos_ana"><i class="fa fa-angle-right"></i> Grupos Anamnese</a></li>
-
-									<li class="<?php echo $itens_ana ?>"><a href="index.php?pagina=itens_ana"><i class="fa fa-angle-right"></i> Itens Anamnese</a></li>
-
-									<li class="<?php echo $ferias ?>"><a href="index.php?pagina=ferias"><i class="fa fa-angle-right"></i> Ferias</a></li>
-
-									<li class="<?php echo $ocorrencias ?>"><a href="index.php?pagina=ocorrencias"><i class="fa fa-angle-right"></i> Ocorrencias</a></li>
 
 									<li class="<?php echo $mensagem ?>"><a href="index.php?pagina=mensagem"><i class="fa fa-angle-right"></i> Mensagem</a></li>
 									
@@ -220,79 +197,7 @@ $data_atual = date('Y-m-d');
 							</li>
 
 
-
-							<li class="treeview <?php echo $menu_financeiro ?>">
-								<a href="#">
-									<i class="fa fa-usd"></i>
-									<span>Financeiro</span>
-									<i class="fa fa-angle-left pull-right"></i>
-								</a>
-								<ul class="treeview-menu">
-
-									<li class="<?php echo $receber ?>"><a href="index.php?pagina=receber"><i class="fa fa-angle-right"></i> Recebimentos</a></li>
-
-									<li class="<?php echo $pagar ?>"><a href="index.php?pagina=pagar"><i class="fa fa-angle-right"></i> Despesas / Pagamentos</a></li>
-
-
-									<li class="<?php echo $comissoes ?>"><a href="index.php?pagina=comissoes"><i class="fa fa-angle-right"></i> Comissões</a></li>
-
-
-									<li class="<?php echo $recebimento_convenio ?>"><a href="" data-toggle="modal" data-target="#modalReceb"><i class="fa fa-angle-right"></i> Recebimento Convênio</a></li>
-
-
-									<li class="<?php echo $rel_lucro ?>"><a href="" data-toggle="modal" data-target="#modalRelLucro"><i class="fa fa-angle-right"></i> Demonstrativo de Lucro</a></li>
-
-
-									<li class="<?php echo $rel_financeiro ?>"><a href="" data-toggle="modal" data-target="#modalRelFin"><i class="fa fa-angle-right"></i> Relatórios Financeiro</a></li>
-
-									<li class="<?php echo $rel_gerencial ?>"><a href="https://app.powerbi.com/reportEmbed?reportId=af88457d-6c8f-4fbe-9d1b-57adc03a227d&autoAuth=true&ctid=e035c911-a00a-4f3c-87de-0b19b9e1554e" target="_blank"><i class="fa fa-angle-right"></i> Relatório Gerencial</a></li>
-
-
-									
-									
-								</ul>
 							</li>
-
-
-
-
-								<li class="treeview <?php echo $menu_agendamentos ?>">
-								<a href="#">
-									<i class="fa fa-calendar"></i>
-									<span>Agendamentos</span>
-									<i class="fa fa-angle-left pull-right"></i>
-								</a>
-								<ul class="treeview-menu">
-									<li class="<?php echo $agendamentos ?>"><a href="index.php?pagina=agendamentos"><i class="fa fa-angle-right"></i> Agendamentos</a></li>
-
-
-									<li class="<?php echo $rel_agendamentos ?>"><a href="" data-toggle="modal" data-target="#modalRelAgendamento"><i class="fa fa-angle-right"></i> Relatórios Agendamentos</a></li>
-									
-									
-								</ul>
-							</li>
-
-							<?php if($atendimento_usuario == 'Sim'){ ?>
-
-								<li class="treeview <?php echo $consultas ?>">
-								<a href="index.php?pagina=consultas">
-									<i class="fa fa-stethoscope"></i> <span>Consultas</span>
-								</a>
-							</li>
-
-							<li class="treeview <?php echo $horarios ?>">
-								<a href="index.php?pagina=horarios">
-									<i class="fa fa-clock-o"></i> <span>Dias / Horários</span>
-								</a>
-							</li>
-
-
-							<li class="treeview <?php echo $minhas_comissoes ?>">
-								<a href="index.php?pagina=minhas_comissoes">
-									<i class="fa fa-money"></i> <span>Minhas Comissões</span>
-								</a>
-							</li>
-							<?php } ?>
 
 						</ul>
 					</div>
@@ -572,15 +477,6 @@ $data_atual = date('Y-m-d');
 
 						
 					</div>
-
-
-					<div class="row">
-						<div class="col-md-12">	
-							<label>Endereço</label>
-							<input type="text" class="form-control" id="endereco_perfil" name="endereco" placeholder="Seu Endereço" value="<?php echo $endereco_usuario ?>" >	
-						</div>
-					</div>
-					
 
 
 					<div class="row">

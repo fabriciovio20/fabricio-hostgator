@@ -1,5 +1,6 @@
 <?php 
 $pag = 'usuarios';
+@session_start(); // Iniciar a sessão
 
 if(@$usuarios == 'ocultar'){
 	echo "<script>window.location='../index.php'</script>";
@@ -8,6 +9,7 @@ if(@$usuarios == 'ocultar'){
 
  ?>
 <a onclick="inserir()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Usuário</a>
+<a onclick="importar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Importar</a>
 
 
 
@@ -45,16 +47,14 @@ if(@$usuarios == 'ocultar'){
 				
 
 					<div class="row">
-						<div class="col-md-6">							
+						<div class="col-md-4">							
+								<label>Registro</label>
+								<input type="text" class="form-control" id="registro" name="registro" placeholder="Registro" required>							
+						</div>
+						<div class="col-md-8">							
 								<label>Nome</label>
 								<input type="text" class="form-control" id="nome" name="nome" placeholder="Seu Nome" required>							
 						</div>
-
-						<div class="col-md-6">							
-								<label>Email</label>
-								<input type="email" class="form-control" id="email" name="email" placeholder="Seu Email"  required>							
-						</div>
-
 						
 					</div>
 
@@ -91,36 +91,20 @@ if(@$usuarios == 'ocultar'){
 
 					<div class="row">
 
-						<div class="col-md-12">							
-								<label>Endereço</label>
-								<input type="text" class="form-control" id="endereco" name="endereco" placeholder="Seu Endereço" >							
+						<div class="col-md-5">							
+								<label>Filial</label>
+								<select class="form-control" name="filial" id="filial">
+									<option value="motores">Motores</option>
+									<option value="cgl">CGL</option>
+									<option value="filtros">Filtros</option>
+								</select>								
+						</div>
+
+						<div class="col-md-7">							
+								<label>CPF</label>
+								<input type="text" class="form-control" id="cpf" name="cpf" placeholder="Seu CPF"  >							
 						</div>
 					</div>
-
-					
-					<div class="row">
-						<div class="col-md-3">	
-								<label>Atendimento</label>
-								<select class="form-control" name="atendimento" id="atendimento">
-									<option value="Não">Não</option>
-									<option value="Sim">Sim</option>
-								</select>						
-						</div>
-
-						<div class="col-md-3">							
-								<label>Comissão %</label>
-								<input type="number" class="form-control" id="comissao" name="comissao" placeholder="Porcentagem Comissão" >							
-						</div>
-
-
-						<div class="col-md-6">							
-								<label>Dados Pagamento</label>
-								<input type="text" class="form-control" id="pagamento" name="pagamento" placeholder="Chave Pix" >							
-						</div>
-					</div>
-
-					
-
 
 					<input type="hidden" class="form-control" id="id" name="id">					
 
@@ -155,6 +139,9 @@ if(@$usuarios == 'ocultar'){
 					<div class="col-md-6" style="margin-bottom: 5px">
 						<span><b>Telefone: </b></span><span id="telefone_dados"></span>
 					</div>
+					<div class="col-md-6" style="margin-bottom: 5px">
+						<span><b>registro: </b></span><span id="registro_dados"></span>
+					</div>
 
 					
 					<div class="col-md-8" style="margin-bottom: 5px">
@@ -180,20 +167,7 @@ if(@$usuarios == 'ocultar'){
 					</div>
 
 					<div class="col-md-12" style="margin-bottom: 5px">
-						<span><b>Endereço: </b></span><span id="endereco_dados"></span>
-					</div>
-
-					<div class="col-md-6" style="margin-bottom: 5px">
-						<span><b>Atendimento: </b></span><span id="atendimento_dados"></span>
-					</div>
-
-					<div class="col-md-6" style="margin-bottom: 5px">
-						<span><b>Comissão: </b></span><span id="comissao_dados"></span>
-					</div>
-
-
-					<div class="col-md-12" style="margin-bottom: 5px">
-						<span><b>Dados Pagamento: </b></span><span id="pagamento_dados"></span>
+						<span><b>cpf: </b></span><span id="cpf_dados"></span>
 					</div>
 
 					<div class="col-md-12" style="margin-bottom: 5px">
@@ -246,8 +220,55 @@ if(@$usuarios == 'ocultar'){
 
 
 
+<!-- Modal Perfil -->
+<div class="modal fade" id="modalForm1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir"></span></h4>
+				<button id="btn-fechar" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<form id="form2" method="POST"  enctype="multipart/form-data">
+			<div class="modal-body">
+				
+
+					<div class="row">
+						<div class="col-md-12">							
+								<label>Importar Dados</label>
+								<input type="file" class="form-control" id="arquivo" name="arquivo" accept="text/csv">							
+						</div>
+						
+					</div>
+
+					<div class="row">
+					<div class="col-md-6" style="margin-top: 22px">							
+						<input type="submit" value="Enviar" id="btn-enviar" class="btn btn-primary">
+					
+						</div>
+					</div>
+
+					
+			
+					<input type="hidden" class="form-control" id="id" name="id">					
+
+				<br>
+				<small><div id="mensagem" align="center"></div></small>
+			</div>
+			
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
 <script type="text/javascript">var pag = "<?=$pag?>"</script>
 <script src="js/ajax.js"></script>
+
 
 
 
@@ -322,3 +343,35 @@ if(@$usuarios == 'ocultar'){
     });
 	}
 </script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#btn-enviar').on('click', function(e) {
+        e.preventDefault();
+        importar();
+		ocultar();
+});
+
+    });
+
+function importar() {
+    $('#mensagem').text('');
+    $('#titulo_inserir').text('Inserir Registro');
+    $('#modalForm1').modal('show');
+
+    var form = document.getElementById('form2');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'paginas/importar.php', true);
+
+    xhr.send(formData);
+
+}
+
+function ocultar(){
+	$('#modalForm1').modal('hide');
+}
+</script>
+

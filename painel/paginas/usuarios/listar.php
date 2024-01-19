@@ -13,9 +13,7 @@ echo <<<HTML
 	<tr> 
 	<th>Nome</th>	
 	<th class="esc">Cadastrado em</th>		
-	<th class="esc">Nível / Cargo</th>
-	<th class="esc">Atendimento</th>
-	<th class="esc">Comissão</th>	
+	<th class="esc">Nível / Cargo</th>	
 	<th class="esc">Foto</th>	
 	<th>Ações</th>
 	</tr> 
@@ -26,19 +24,16 @@ HTML;
 
 for($i=0; $i<$linhas; $i++){
 	$id = $res[$i]['id'];
+	$registro = $res[$i]['registro'];
 	$nome = $res[$i]['nome'];
 	$telefone = $res[$i]['telefone'];
 	$email = $res[$i]['email'];
+	$cpf = $res[$i]['cpf'];
 	$senha = $res[$i]['senha'];
 	$foto = $res[$i]['foto'];
 	$nivel = $res[$i]['nivel'];
-	$endereco = $res[$i]['endereco'];
 	$ativo = $res[$i]['ativo'];
 	$data = $res[$i]['data'];
-	$atendimento = $res[$i]['atendimento'];
-	$comissao = $res[$i]['comissao'];
-	$pagamento = $res[$i]['pagamento'];
-
 	$dataF = implode('/', array_reverse(explode('-', $data)));
 
 	if($ativo == 'Sim'){
@@ -70,11 +65,9 @@ echo <<<HTML
 </td>
 <td class="esc">{$dataF}</td>
 <td class="esc">{$nivel}</td>
-<td class="esc">{$atendimento}</td>
-<td class="esc">{$comissao}%</td>
 <td class="esc"><img src="images/perfil/{$foto}" width="25px"></td>
 <td>
-	<big><a href="#" onclick="editar('{$id}','{$nome}','{$email}','{$telefone}','{$endereco}','{$nivel}','{$atendimento}','{$comissao}','{$pagamento}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+	<big><a href="#" onclick="editar('{$id}','{$registro}','{$nome}','{$email}','{$telefone}','{$cpf}','{$nivel}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 	<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -88,7 +81,7 @@ echo <<<HTML
 		</ul>
 </li>
 
-<big><a href="#" onclick="mostrar('{$nome}','{$email}','{$telefone}','{$endereco}','{$ativo}','{$dataF}', '{$senha}', '{$nivel}', '{$foto}','{$atendimento}','{$comissao}','{$pagamento}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
+<big><a href="#" onclick="mostrar('{$registro}','{$nome}','{$email}','{$telefone}','{$cpf}','{$ativo}','{$dataF}', '{$senha}', '{$nivel}', '{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
 
 
 <big><a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a></big>
@@ -132,37 +125,33 @@ HTML;
 </script>
 
 <script type="text/javascript">
-	function editar(id, nome, email, telefone, endereco, nivel, atendimento, comissao, pagamento){
+	function editar(id, registro, nome, email, telefone, cpf, nivel){
 		$('#mensagem').text('');
     	$('#titulo_inserir').text('Editar Registro');
 
     	$('#id').val(id);
+    	$('#registro').val(registro);
     	$('#nome').val(nome);
     	$('#email').val(email);
     	$('#telefone').val(telefone);
-    	$('#endereco').val(endereco);
+    	$('#cpf').val(cpf);
     	$('#nivel').val(nivel).change();
-    	$('#comissao').val(comissao);
-    	$('#atendimento').val(atendimento).change();
-    	$('#pagamento').val(pagamento);
-
+    	
     	$('#modalForm').modal('show');
 	}
 
 
-	function mostrar(nome, email, telefone, endereco, ativo, data, senha, nivel, foto, atendimento, comissao, pagamento){
+	function mostrar(registro, nome, email, telefone, cpf, ativo, data, senha, nivel, foto){
 		    	
+    	$('#registro_dados').text(registro);
     	$('#titulo_dados').text(nome);
     	$('#email_dados').text(email);
     	$('#telefone_dados').text(telefone);
-    	$('#endereco_dados').text(endereco);
+    	$('#cpf_dados').text(cpf);
     	$('#ativo_dados').text(ativo);
     	$('#data_dados').text(data);
     	$('#senha_dados').text(senha);
     	$('#nivel_dados').text(nivel);
-    	$('#atendimento_dados').text(atendimento);
-    	$('#comissao_dados').text(comissao+'%');
-    	$('#pagamento_dados').text(pagamento);
     	$('#foto_dados').attr("src", "images/perfil/" + foto);
     	
 
@@ -171,14 +160,11 @@ HTML;
 
 	function limparCampos(){
 		$('#id').val('');
+		$('#registro').val('');
     	$('#nome').val('');
     	$('#email').val('');
     	$('#telefone').val('');
-    	$('#endereco').val('');
-    	$('#atendimento').val('Não').change();
-    	$('#comissao').val('');
-    	$('#pagamento').val('');
-
+    	$('#cpf').val('');
     	$('#ids').val('');
     	$('#btn-deletar').hide();	
 	}

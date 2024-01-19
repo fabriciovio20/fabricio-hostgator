@@ -3,48 +3,27 @@ $tabela = 'usuarios';
 require_once("../../../conexao.php");
 
 $registro = $_POST['registro'];
-$email = $_POST['email'];
+$nome = $_POST['nome'];
 $telefone = $_POST['telefone'];
 $nivel = $_POST['nivel'];
-$endereco = $_POST['endereco'];
+$filial = $_POST['filial'];
+$cpf = $_POST['cpf'];
 $senha = '123';
 $senha_crip = md5($senha);
-$atendimento = $_POST['atendimento'];
-$comissao = $_POST['comissao'];
-$pagamento = $_POST['pagamento'];
 $id = $_POST['id'];
 
-//validacao email
-$query = $pdo->query("SELECT * from $tabela where email = '$email'");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$id_reg = @$res[0]['id'];
-if(@count($res) > 0 and $id != $id_reg){
-	echo 'Email já Cadastrado!';
-	exit();
-}
-
-//validacao telefone
-$query = $pdo->query("SELECT * from $tabela where telefone = '$telefone'");
-$res = $query->fetchAll(PDO::FETCH_ASSOC);
-$id_reg = @$res[0]['id'];
-if(@count($res) > 0 and $id != $id_reg){
-	echo 'Telefone já Cadastrado!';
-	exit();
-}
 
 if($id == ""){
-$query = $pdo->prepare("INSERT INTO $tabela SET nome = :nome, email = :email, senha = '$senha', senha_crip = '$senha_crip', nivel = '$nivel', ativo = 'Sim', foto = 'sem-foto.jpg', telefone = :telefone, data = curDate(), endereco = :endereco, atendimento = :atendimento, comissao = :comissao, pagamento = :pagamento ");
+$query = $pdo->prepare("INSERT INTO $tabela SET registro = :registro, nome = :nome, filial = :filial, senha = '$senha', senha_crip = '$senha_crip', nivel = '$nivel', ativo = 'Sim', foto = 'sem-foto.jpg', telefone = :telefone, data = curDate(), cpf = :cpf ");
 	
 }else{
-$query = $pdo->prepare("UPDATE $tabela SET nome = :nome, email = :email, nivel = '$nivel', telefone = :telefone, endereco = :endereco, atendimento = :atendimento, comissao = :comissao, pagamento = :pagamento where id = '$id'");
+$query = $pdo->prepare("UPDATE $tabela SET registro = :registro, nome = :nome, filial = :filial, nivel = '$nivel', telefone = :telefone, cpf = :cpf where id = '$id'");
 }
+$query->bindValue(":registro", "$registro");
 $query->bindValue(":nome", "$nome");
-$query->bindValue(":email", "$email");
+$query->bindValue(":filial", "$filial");
 $query->bindValue(":telefone", "$telefone");
-$query->bindValue(":endereco", "$endereco");
-$query->bindValue(":atendimento", "$atendimento");
-$query->bindValue(":comissao", "$comissao");
-$query->bindValue(":pagamento", "$pagamento");
+$query->bindValue(":cpf", "$cpf");
 
 $query->execute();
 

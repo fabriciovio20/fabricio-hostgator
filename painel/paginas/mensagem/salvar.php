@@ -28,7 +28,7 @@ $imagem_temp = @$_FILES['foto']['tmp_name'];
 
 if(@$_FILES['foto']['name'] != ""){
 	$ext = pathinfo($nome_img, PATHINFO_EXTENSION);   
-	if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif' or $ext == 'pdf'){ 
+	if($ext == 'png' or $ext == 'jpg' or $ext == 'jpeg' or $ext == 'gif' or $ext == 'pdf' or $ext == 'mp4' or $ext == 'avi' or $ext == 'mov' or $ext == 'mkv' ){ 
         $foto = '';
 			//EXCLUO A FOTO ANTERIOR
 			if($foto != ""){

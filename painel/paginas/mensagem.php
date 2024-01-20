@@ -60,7 +60,7 @@ if(@$mensagem == 'ocultar'){
 						<div class="row">
 						<div class="col-md-8">							
 								<label>Foto</label>
-								<input type="file" class="form-control" id="foto_perfil" name="foto" value="<?php echo $foto_usuario ?>" onchange="carregarImgPerfil()">							
+								<input type="file" class="form-control" id="foto_perfil1" name="foto" value="<?php echo $foto_usuario ?>" onchange="carregarImgPerfil()">							
 						</div>
 						<div class="col-md-4">								
 							<img src="images/perfil/sem-foto.jpg"  width="80px" id="target-usu">								
@@ -111,7 +111,7 @@ if(@$mensagem == 'ocultar'){
 <script type="text/javascript">
 	function carregarImgPerfil() {
     var target = document.getElementById('target-usu');
-    var file = document.querySelector("#foto_perfil").files[0];
+    var file = document.querySelector("#foto_perfil1").files[0];
     
         var reader = new FileReader();
 

@@ -103,7 +103,8 @@ if(@$mensagem == 'ocultar'){
 		$('#data_envio').val('');
 		$('#filial').val('todos');
 		$('#msg_env').val('');		
-		$('#target-usu').attr('src', 'images/perfil/sem-foto.jpg');			
+		$('#target-usu').attr('src', 'images/perfil/sem-foto.jpg');	
+		$('#foto_perfil1').val('');		
         }
 </script>
 

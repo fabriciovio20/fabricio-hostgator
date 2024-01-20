@@ -28,6 +28,7 @@ for($i=0; $i<$linhas; $i++){
 	$data_envioF = implode('/', array_reverse(explode('-', $data_envio2)));
 	$filial = $res[$i]['filial'];
 	$msg_env = $res[$i]['mensagem'];
+	$foto = $res[$i]['foto'];
 		
 echo <<<HTML
 <tr>
@@ -39,7 +40,7 @@ echo <<<HTML
 <td>{$msg_env}</td>
 
 <td>
-	<big><a href="#" onclick="editar('{$id}','{$data_envio}','{$filial}','{$msg_env}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+	<big><a href="#" onclick="editar('{$id}','{$data_envio}','{$filial}','{$msg_env}','{$foto}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 	<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
@@ -88,7 +89,7 @@ HTML;
 </script>
 
 <script type="text/javascript">
-	function editar(id, data_envio, filial, msg_env){
+	function editar(id, data_envio, filial, msg_env, foto){
 		$('#mensagem').text('');
     	$('#titulo_inserir').text('Editar Registro');
 
@@ -96,6 +97,7 @@ HTML;
     	$('#data_envio').val(data_envio);
     	$('#filial').val(filial);
     	$('#msg_env').val(msg_env);
+    	$('#foto').val(foto);
     
     	$('#modalForm').modal('show');
 	}
@@ -107,6 +109,7 @@ HTML;
     	$('#data_envio').val('');
     	$('#filial').val('todos');
     	$('#msg_env').val('');
+    	$('#foto').val('');
     
 
     	$('#ids').val('');

@@ -121,7 +121,7 @@ if($filial == 'todos' and $check == 'Sim'){
 
 }elseif($filial == 'todos' and $check == 'Não'){
 
-	$query3 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
+	$query3 = $pdo->query("SELECT * from usuarios where ativo != 'não'");
 	$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 	$linhas = @count($res3);
 	if($linhas > 0){
@@ -132,13 +132,11 @@ if($filial == 'todos' and $check == 'Sim'){
 
 				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 				$mensagem = $msg_env;
-				$data_agd2 = $data_envio;
 				require("../../apis/texto.php");
 				
 			}else{
 				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 				$mensagem = $msg_env;
-				$data_agd2 = $data_envio;
 				$arquivo = $foto;
 				require("../../apis/texto_img.php");
 			}
@@ -160,13 +158,11 @@ if($filial == 'todos' and $check == 'Sim'){
 
 				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 				$mensagem = $msg_env;
-				$data_agd2 = $data_envio;
 				require("../../apis/texto.php");
 				
 			}else{
 				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 				$mensagem = $msg_env;
-				$data_agd2 = $data_envio;
 				$arquivo = $foto;
 				require("../../apis/texto_img.php");
 			}

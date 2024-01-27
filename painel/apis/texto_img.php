@@ -15,6 +15,7 @@ curl_setopt_array($curl, array(
     'authkey' => $token,
     'to' => $telefone_envio,
     'message' => $mensagem,
+    'descricao' => $mensagem,
     'file' => 'https://hrautomate-tec.com/painel/images/perfil/'.$arquivo,
     'sandbox' => 'false'
     ),

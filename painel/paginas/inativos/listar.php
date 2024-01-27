@@ -2,7 +2,7 @@
 $tabela = 'usuarios';
 require_once("../../../conexao.php");
 
-$query = $pdo->query("SELECT * from $tabela where ativo = 'Sim' order by id desc");
+$query = $pdo->query("SELECT * from $tabela where ativo = 'Não' order by id desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){

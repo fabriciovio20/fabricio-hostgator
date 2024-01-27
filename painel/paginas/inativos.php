@@ -1,5 +1,5 @@
 <?php 
-$pag = 'usuarios';
+$pag = 'inativos';
 @session_start(); // Iniciar a sessão
 
 if(@$usuarios == 'ocultar'){

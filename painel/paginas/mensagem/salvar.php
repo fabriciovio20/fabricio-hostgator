@@ -8,6 +8,12 @@ $filial = $_POST['filial'];
 $msg_env = $_POST['msg_env'];
 $id = $_POST['id'];
 
+if(isset($_POST['checkbox_data'])) {
+    $check = 'Sim';
+} else {
+    $check = 'Não';
+}
+
 
 //validar troca da foto
 $query = $pdo->query("SELECT * FROM $tabela where id = '$id'");
@@ -58,7 +64,7 @@ $query->bindValue(":foto", "$foto");
 $query->execute();
 
 
-if($filial == 'todos'){
+if($filial == 'todos' and $check == 'Sim'){
 
 	$query2 = $pdo->query("SELECT * from usuarios where ativo != 'não'");
 	$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
@@ -85,7 +91,7 @@ if($filial == 'todos'){
 
 		}
 	}
-}elseif($filial != ''){
+}elseif($filial != '' and $check == 'Sim'){
 
 	$query3 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
 	$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
@@ -112,6 +118,64 @@ if($filial == 'todos'){
 
 		}
 	}
+
+}elseif($filial == 'todos' and $check == 'Não'){
+
+	$query3 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
+	$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+	$linhas = @count($res3);
+	if($linhas > 0){
+		for($i=0; $i<$linhas; $i++){
+			$telefone = @$res3[$i]['telefone'];
+
+			if($token != "" and $foto ==""){
+
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/texto.php");
+				
+			}else{
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/texto_img.php");
+			}
+
+
+		}
+	}
+
+}elseif($filial != '' and $check == 'Não'){
+
+	$query3 = $pdo->query("SELECT * from usuarios where filial = '$filial' AND ativo != 'não'");
+	$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+	$linhas = @count($res3);
+	if($linhas > 0){
+		for($i=0; $i<$linhas; $i++){
+			$telefone = @$res3[$i]['telefone'];
+
+			if($token != "" and $foto ==""){
+
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/texto.php");
+				
+			}else{
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/texto_img.php");
+			}
+
+
+		}
+	}
+
+
 
 }else{
 	echo 'Selecione pelo menos 1 opção das filiais!!';

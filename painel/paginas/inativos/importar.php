@@ -1,6 +1,6 @@
 <?php
 $tabela = 'usuarios';
-require_once("../../conexao.php");
+require_once("../../../conexao.php");
 
 $arquivo = $_FILES["arquivo"]["tmp_name"];
 $nome = $_FILES["arquivo"]["name"];

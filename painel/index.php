@@ -175,6 +175,9 @@ $data_atual = date('Y-m-d');
 								<ul class="treeview-menu">
 									<li class="<?php echo $usuarios ?>"><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 								</ul>
+								<ul class="treeview-menu">
+									<li class="<?php echo $inativos ?>"><a href="index.php?pagina=inativos"><i class="fa fa-angle-right"></i> Inativos</a></li>
+								</ul>
 							</li>
 
 							<li class="treeview <?php echo $menu_cadastros ?>">
@@ -635,80 +638,6 @@ $data_atual = date('Y-m-d');
 
 
 
-<!-- Modal Rel Financeiro -->
-<div class="modal fade" id="modalRelFin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Relatório Financeiro</h4>
-				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form method="POST" action="rel/financeiro_class.php" target="_blank">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				<div class="col-md-4">
-					<label>Filtro Data</label>
-					<select name="filtro_data" class="form-control">
-						<option value="data_lanc">Data de Lançamento</option>
-						<option value="data_venc">Data de Vencimento</option>
-						<option value="data_pgto">Data de Pagamento</option>
-					</select>
-				</div>
-			</div>		
-
-
-			<div class="row">				
-				<div class="col-md-4">
-					<label>Entradas / Saídas</label>
-					<select name="filtro_tipo" class="form-control">
-						<option value="receber">Entradas / Ganhos</option>
-						<option value="pagar">Saídas / Despesas</option>
-					</select>
-				</div>
-
-				<div class="col-md-4">
-					<label>Tipo Lançamento</label>
-					<select name="filtro_lancamento" class="form-control">
-						<option value="">Tudo</option>
-						<option value="Conta">Ganhos / Despesas</option>
-						<option value="Pagamento">Pagamentos</option>
-						<option value="Procedimento">Exames e Consultas</option>
-						<option value="Comissão">Comissões</option>
-						
-					</select>
-				</div>
-				<div class="col-md-4">
-					<label>Pendentes / Pago</label>
-					<select name="filtro_pendentes" class="form-control">
-						<option value="">Tudo</option>
-						<option value="Não">Pendentes</option>
-						<option value="Sim">Pago</option>
-					</select>
-				</div>			
-			</div>		
-				
-						
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Gerar</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 
 
@@ -717,233 +646,13 @@ $data_atual = date('Y-m-d');
 
 
 
-<!-- Modal Rel Agendamento -->
-<div class="modal fade" id="modalRelAgendamento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Relatório Agendamentos / Procedimentos</h4>
-				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form method="POST" action="rel/agendamentos_class.php" target="_blank">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				<div class="col-md-4">
-					<label>Status</label>
-					<select name="status" class="form-control">
-						<option value="">Todos</option>
-						<option value="Agendado">Agendado</option>
-						<option value="Confirmado">Confirmado</option>
-						<option value="Finalizado">Finalizado</option>
-					</select>
-				</div>
-			</div>		
-
-
-			<div class="row">				
-				<div class="col-md-4">
-					<label>Pago</label>
-					<select name="pago" class="form-control">
-						<option value="">Todos</option>
-						<option value="Não">Não</option>
-						<option value="Sim">Sim</option>
-					</select>
-				</div>
-
-				<div class="col-md-4">
-					<label>Convênio</label>
-					<select name="convenio" class="form-control">
-						<option value="">Tudo</option>
-						<option value="0">Particular</option>
-						<?php 
-									$query = $pdo->query("SELECT * FROM convenios");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									$total_reg = @count($res);
-									if($total_reg > 0){
-										for($i=0; $i < $total_reg; $i++){
-											foreach ($res[$i] as $key => $value){}
-												echo '<option value="'.$res[$i]['id'].'">'.$res[$i]['nome'].'</option>';
-										}
-									}
-									?>
-						
-					</select>
-				</div>
-				<div class="col-md-4">
-					<label>Procedimentos</label>
-					<select name="procedimento" class="form-control">
-						<option value="">Todos</option>
-						<?php 
-									$query = $pdo->query("SELECT * FROM procedimentos");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									$total_reg = @count($res);
-									if($total_reg > 0){
-										for($i=0; $i < $total_reg; $i++){
-											foreach ($res[$i] as $key => $value){}
-												echo '<option value="'.$res[$i]['id'].'">'.$res[$i]['nome'].'</option>';
-										}
-									}
-									?>
-					</select>
-				</div>			
-			</div>		
-				
-						
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Gerar</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-
-
-<!-- Modal Rel Lucro -->
-<div class="modal fade" id="modalRelLucro" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Relatório de Lucro</h4>
-				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form method="POST" action="rel/lucro_class.php" target="_blank">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>">
-				</div>
-
-				
-
-				
-			</div>		
-
-
-								
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Gerar</button>
-			</div>
-			</form>
-		</div>
-	</div>
-</div>
 
 
 
 
 
-<!-- Modal Receb -->
-<div class="modal fade" id="modalReceb" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel">Lançar Recebimento</h4>
-				<button id="btn-fechar-rel" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<form id="form_conve">
-			<div class="modal-body">	
-			<div class="row">
-				<div class="col-md-4">
-					<label>Data Inicial</label>
-					<input type="date" name="dataInicial" class="form-control" value="<?php echo $data_atual ?>" required>
-				</div>
-
-				<div class="col-md-4">
-					<label>Data Final</label>
-					<input type="date" name="dataFinal" class="form-control" value="<?php echo $data_atual ?>" required>
-				</div>
-
-				<div class="col-md-4">
-					<label>Convênio</label>
-					<select name="convenio" class="form-control">						
-						<?php 
-									$query = $pdo->query("SELECT * FROM convenios");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									$total_reg = @count($res);
-									if($total_reg > 0){
-										for($i=0; $i < $total_reg; $i++){
-											foreach ($res[$i] as $key => $value){}
-												echo '<option value="'.$res[$i]['id'].'">'.$res[$i]['nome'].'</option>';
-										}
-									}
-									?>
-						
-					</select>
-				</div>
-
-				
-			</div>		
 
 
-			<div class="row">
-				<div class="col-md-4">
-					<label>Pagamento</label>
-					<select name="pgto" class="form-control">						
-						<?php 
-									$query = $pdo->query("SELECT * FROM formas_pgto");
-									$res = $query->fetchAll(PDO::FETCH_ASSOC);
-									$total_reg = @count($res);
-									if($total_reg > 0){
-										for($i=0; $i < $total_reg; $i++){
-											foreach ($res[$i] as $key => $value){}
-												echo '<option value="'.$res[$i]['nome'].'">'.$res[$i]['nome'].'</option>';
-										}
-									}
-									?>
-						
-					</select>
-				</div>
-
-				<div class="col-md-3">
-					<label>Valor</label>
-					<input type="text" name="valor" class="form-control" value="" required>
-				</div>
-
-				<div class="col-md-5">
-					<label>Observações</label>
-					<input type="text" name="obs" class="form-control" value="">
-				</div>
-			</div>
-								
-			<small><div align="center" id="msg-conve"></div><small>
-
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Lançar</button>
-			</div>
-			</form>
-
-
-		</div>
-	</div>
-</div>
 
 
 
@@ -1163,47 +872,6 @@ $data_atual = date('Y-m-d');
             target.src = "";
         }
     }
-</script>
-
-
-
-
- <script type="text/javascript">
-	$("#form_conve").submit(function () {
-
-		event.preventDefault();
-		var formData = new FormData(this);
-
-		$.ajax({
-			url: "lancar_valor.php",
-			type: 'POST',
-			data: formData,
-
-			success: function (mensagem) {
-				$('#msg-conve').text('');
-				$('#msg-conve').removeClass()
-				if (mensagem.trim() == "Salvo com Sucesso") {
-
-					$('#btn-fechar-conve').click();
-					window.location="index.php?pagina=receber"				
-						
-
-				} else {
-
-					$('#msg-conve').addClass('text-danger')
-					$('#msg-conve').text(mensagem)
-				}
-
-
-			},
-
-			cache: false,
-			contentType: false,
-			processData: false,
-
-		});
-
-	});
 </script>
 
 

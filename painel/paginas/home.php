@@ -34,7 +34,7 @@ $total_inativos = @count($res);
 		</div>
 		</a>
 
-		<a href="index.php?pagina=usuarios">
+		<a href="index.php?pagina=inativos">
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded"></i>

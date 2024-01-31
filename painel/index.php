@@ -174,9 +174,10 @@ $data_atual = date('Y-m-d');
 								</a>
 								<ul class="treeview-menu">
 									<li class="<?php echo $usuarios ?>"><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
-								</ul>
-								<ul class="treeview-menu">
+
 									<li class="<?php echo $inativos ?>"><a href="index.php?pagina=inativos"><i class="fa fa-angle-right"></i> Inativos</a></li>
+								
+									<li class="<?php echo $candidatos ?>"><a href="index.php?pagina=candidatos"><i class="fa fa-angle-right"></i> Candidatos</a></li>
 								</ul>
 							</li>
 
@@ -199,8 +200,21 @@ $data_atual = date('Y-m-d');
 								</ul>
 							</li>
 
+							<li class="treeview <?php echo $menu_processo_seletivo ?>">
+								<a href="#">
+									<i class="fa fa-suitcase"></i>
+									<span>Processo Seletivo</span>
+									<i class="fa fa-angle-left pull-right"></i>
+								</a>
+								<ul class="treeview-menu">
 
+									<li class="<?php echo $mensagem_candidato ?>"><a href="index.php?pagina=mensagem_candidato"><i class="fa fa-angle-right"></i> Mensagem Candidatos</a></li>
+									
+								</ul>
 							</li>
+
+
+							
 
 						</ul>
 					</div>
@@ -233,8 +247,8 @@ $data_atual = date('Y-m-d');
 								<div class="profile_img">	
 									<span class="prfil-img"><img src="images/perfil/<?php echo $foto_usuario ?>" alt="" width="50px" height="50px"> </span> 
 									<div class="user-name esc">
-										<p><?php echo $nome_usuario ?></p>
-										<span><?php echo $nivel_usuario ?></span>
+										<p><?php echo @$nome_usuario ?></p>
+										<span><?php echo @$nivel_usuario ?></span>
 									</div>
 									<i class="fa fa-angle-down lnr"></i>
 									<i class="fa fa-angle-up lnr"></i>

@@ -53,7 +53,7 @@ if($check == 'Sim'){
 			if($token != ""){
 
 				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-				$mensagem = "Prezado(a) ".$nome." agradecemos seu interesse no processo seletivo realizado no dia".$dataF.". Após uma avaliação cuidadosa, decidimos não avançar com sua candidatura. Agradecemos seu tempo e desejamos sucesso em suas futuras oportunidades.\n\nAtenciosamente,\nRecursos Humanos JSL!";
+				$mensagem = "Prezado(a) ".$nome." agradecemos seu interesse no processo seletivo realizado no dia ".$dataF.". Após uma avaliação cuidadosa, decidimos não avançar com sua candidatura. Agradecemos seu tempo e desejamos sucesso em suas futuras oportunidades.\n\nAtenciosamente,\nRecursos Humanos JSL!";
 				$data_agd2 = $data_envio;
 				require("../../apis/agendar.php");
 				

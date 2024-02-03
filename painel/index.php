@@ -175,7 +175,11 @@ $data_atual = date('Y-m-d');
 								<ul class="treeview-menu">
 									<li class="<?php echo $usuarios ?>"><a href="index.php?pagina=usuarios"><i class="fa fa-angle-right"></i> Usuários</a></li>
 
-									<li class="<?php echo $inativos ?>"><a href="index.php?pagina=inativos"><i class="fa fa-angle-right"></i> Inativos</a></li>
+									<li class="<?php echo $inativos ?>"><a href="index.php?pagina=inativos"><i class="fa fa-angle-right"></i> Usuarios Inativos</a></li>
+
+									<li class="<?php echo $funcionarios ?>"><a href="index.php?pagina=funcionarios"><i class="fa fa-angle-right"></i> Funcionarios</a></li>
+								
+									<li class="<?php echo $funcionarios_inativos ?>"><a href="index.php?pagina=funcionarios_inativos"><i class="fa fa-angle-right"></i> Funcionarios Inativos</a></li>
 								
 									<li class="<?php echo $candidatos ?>"><a href="index.php?pagina=candidatos"><i class="fa fa-angle-right"></i> Candidatos</a></li>
 								</ul>

@@ -1,5 +1,5 @@
 <?php 
-$tabela = 'usuarios';
+$tabela = 'funcionarios';
 require_once("../../../conexao.php");
 
 $query = $pdo->query("SELECT * from $tabela where ativo = 'Sim' order by id desc");
@@ -29,7 +29,6 @@ for($i=0; $i<$linhas; $i++){
 	$email = $res[$i]['email'];
 	$telefone = $res[$i]['telefone'];
 	$cpf = $res[$i]['cpf'];
-	$senha = $res[$i]['senha'];
 	$foto = $res[$i]['foto'];
 	$nivel = $res[$i]['nivel'];
 	$ativo = $res[$i]['ativo'];
@@ -49,11 +48,6 @@ for($i=0; $i<$linhas; $i++){
 		$classe_ativo = '#c4c4c4';
 	}
 
-	$mostrar_adm = '';
-	if($nivel == 'Administrador'){
-		$senha = '***';
-		$mostrar_adm = 'ocultar';
-	}
 
 	$tel_pessoaF = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 
@@ -82,13 +76,10 @@ echo <<<HTML
 		</ul>
 </li>
 
-<big><a href="#" onclick="mostrar('{$registro}','{$nome}','{$email}','{$telefone}','{$cpf}','{$ativo}','{$dataF}', '{$senha}', '{$nivel}', '{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
+<big><a href="#" onclick="mostrar('{$registro}','{$nome}','{$email}','{$telefone}','{$cpf}','{$ativo}','{$dataF}', '{$nivel}', '{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
 
 
 <big><a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a></big>
-
-
-<big><a class="{$mostrar_adm}" href="#" onclick="permissoes('{$id}', '{$nome}')" title="Dar Permissões"><i class="fa fa-lock text-primary"></i></a></big>
 
 
 <big><a class="" href="http://api.whatsapp.com/send?1=pt_BR&phone={$tel_pessoaF}" title="Whatsapp" target="_blank"><i class="fa fa-whatsapp " style="color:green"></i></a></big>
@@ -143,7 +134,7 @@ HTML;
 	}
 
 
-	function mostrar(registro, nome, email, telefone, cpf, ativo, data, senha, nivel, foto){
+	function mostrar(registro, nome, email, telefone, cpf, ativo, data, nivel, foto){
 		    	
     	$('#registro_dados').text(registro);
     	$('#titulo_dados').text(nome);
@@ -152,7 +143,6 @@ HTML;
     	$('#cpf_dados').text(cpf);
     	$('#ativo_dados').text(ativo);
     	$('#data_dados').text(data);
-    	$('#senha_dados').text(senha);
     	$('#nivel_dados').text(nivel);
     	$('#foto_dados').attr("src", "images/perfil/" + foto);
     	

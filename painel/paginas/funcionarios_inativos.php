@@ -1,5 +1,5 @@
 <?php 
-$pag = 'funcionarios';
+$pag = 'funcionarios_inativos';
 @session_start(); // Iniciar a sessão
 
 if(@$funcionarios == 'ocultar'){

@@ -8,7 +8,7 @@ if(@$usuarios == 'ocultar'){
 }
 
  ?>
-<a onclick="inserir()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Usuário</a>
+<a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Usuário</a>
 <a onclick="importar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Importar</a>
 <a onclick="inativar()" type="button" class="btn btn-danger"><span class="fa fa-plus"></span> Inativar em Massa</a>
 
@@ -26,9 +26,40 @@ if(@$usuarios == 'ocultar'){
 		</ul>
 </li>
 
-<div class="bs-example widget-shadow" style="padding:15px" id="listar">
+<div class="bs-example widget-shadow" style="padding:15px">
 
+	<div class="row">
+	
+
+
+
+        <div class="col-md-3"  align="left">	
+                <div > 
+                    <small >
+                        <a title="Todos" class="text-muted" href="#" onclick="buscarUsu('')"><span style="color: blue;">Todos</span></a> / 
+                        <a title="Ativos" class="text-muted" href="#" onclick="buscarUsu('Sim')"><span style="color: green;">Ativos</span></a> / 
+                        <a title="Inativos" class="text-muted" href="#" onclick="buscarUsu('Não')"><span style="color: red;">Inativos</span></a>
+                    </small>
+                </div>
+        </div>	
+
+
+		
+
+		<input type="hidden" id="buscar-usu">
+
+	</div>
+
+	
+
+	<hr>
+	<div id="listar">
+
+	</div>
+	
 </div>
+
+
 
 
 <input type="hidden" id="ids">
@@ -70,7 +101,7 @@ if(@$usuarios == 'ocultar'){
 
 						<div class="col-md-6">							
 								<label>Nível</label>
-								<select class="form-control" name="nivel" id="nivel" required>
+								<select class="form-control sel" name="nivel" id="nivel" required style="width:100%">
 								 <?php 
 									$query = $pdo->query("SELECT * from cargos order by id asc");
 									$res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -466,3 +497,53 @@ function ocultar1(){
 }
 </script>
 
+
+<script type="text/javascript">
+    function limpar(){
+        $('#id').val('');		
+        $('#registro').val('');
+        $('#nome').val('');
+        $('#telefone').val('');
+        $('#nivel').val('Administrador');
+        $('#filial').val('motores');
+        $('#cpf').val('');		
+        $('#email').val('');		
+    }
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('.sel').select2({
+    		dropdownParent: $('#modalForm')
+    	});
+	});
+</script>
+
+
+<script type="text/javascript">
+	function listar(){
+	
+	var status = $('#buscar-usu').val();	
+
+	
+    $.ajax({
+        url: 'paginas/' + pag + "/listar.php",
+        method: 'POST',
+        data: {status},
+        dataType: "html",
+
+        success:function(result){
+            $("#listar").html(result);
+            $('#mensagem-excluir').text('');
+        }
+    });
+}
+</script>
+
+
+<script type="text/javascript">
+	function buscarUsu(status){
+	 $('#buscar-usu').val(status);
+	 listar();
+	}
+</script>

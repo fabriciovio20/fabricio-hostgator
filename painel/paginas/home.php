@@ -30,7 +30,7 @@ $total_func_inativos = @count($res3);
 <div class="main-page">
 	<div class="col_3">
 
-		<a href="index.php?pagina=usuarios">
+		
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded" style="background:#2a2ea3"></i>
@@ -42,7 +42,7 @@ $total_func_inativos = @count($res3);
 		</div>
 		</a>
 
-		<a href="index.php?pagina=inativos">
+		
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded"></i>
@@ -54,7 +54,7 @@ $total_func_inativos = @count($res3);
 		</div>
 		</a>
 
-		<a href="index.php?pagina=funcionarios">
+		
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded"></i>
@@ -66,7 +66,7 @@ $total_func_inativos = @count($res3);
 		</div>
 		</a>
 
-		<a href="index.php?pagina=funcionarios">
+		
 		<div class="col-md-3 widget widget1">
 			<div class="r3_counter_box">
 				<i class="pull-left fa fa-users icon-rounded"></i>

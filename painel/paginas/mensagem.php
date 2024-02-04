@@ -57,6 +57,7 @@ if(@$mensagem == 'ocultar'){
                             <label>Data Mensagem</label>
                             <input type="datetime-local" class="form-control" id="data_envio" name="data_envio">
                         </div>
+                        
                         <div class="col-md-4">							
                             <label>Filial</label>
                             <select class="form-control" name="filial" id="filial">
@@ -66,6 +67,7 @@ if(@$mensagem == 'ocultar'){
                                 <option value="filtros">Filtros</option>	
                             </select>							
                         </div>
+                    
                         <div class="col-md-8">							
                             <label>Foto</label>
                             <input type="file" class="form-control" id="foto_perfil1" name="foto" value="<?php echo $foto_usuario ?>" onchange="carregarImgPerfil()">							
@@ -77,8 +79,7 @@ if(@$mensagem == 'ocultar'){
                             <label>Mensagem a ser enviada</label>
                             <textarea style="resize: vertical;" class="form-control" id="msg_env" name="msg_env" placeholder="Digite sua mensagem aqui" rows="4"></textarea>						
                         </div>
-                        <div class="row">
-                        </div>
+                        
                     </div>
                 
                     <input type="hidden" class="form-control" id="id" name="id">                 
@@ -108,7 +109,7 @@ if(@$mensagem == 'ocultar'){
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir"></span>					
+				<h4 class="modal-title" id="exampleModalLabel"><span id="func_inserir"></span>					
 				</h4>
                 <button id="btn-fechar-funcionarios" type="button" class="close" aria-label="Close" style="margin-top: -25px">
                     <span aria-hidden="true">&times;</span>
@@ -225,9 +226,12 @@ if(@$mensagem == 'ocultar'){
         if ($(this).is(':checked')) {
             // Se o checkbox estiver marcado, exiba o modal
             $('#modalFuncionarios').modal('show');
+            $('#func_inserir').text('Inserir Registro');
+           
         } else {
             // Se o checkbox não estiver marcado, oculte o modal
             $('#modalFuncionarios').modal('hide');
+           
         }
     });
 
@@ -263,7 +267,7 @@ $("#form_funcionarios").submit(function () {
             if (mensagem.trim() == "Salvo com Sucesso") {
 
                 limparCampos();
-                $('#modalFuncionarios').modal('hide');
+                
                 $('#funcionarios').val('').trigger('change');
                 //$('#btn-fechar-procedimentos').click();
                 listarFuncionarios(usuario);          

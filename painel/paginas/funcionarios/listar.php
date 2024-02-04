@@ -1,8 +1,9 @@
 <?php 
 $tabela = 'funcionarios';
 require_once("../../../conexao.php");
+$status = '%'.@$_POST['status'].'%';
 
-$query = $pdo->query("SELECT * from $tabela where ativo = 'Sim' order by id desc");
+$query = $pdo->query("SELECT * from $tabela where ativo LIKE '$status' order by id desc");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $linhas = @count($res);
 if($linhas > 0){

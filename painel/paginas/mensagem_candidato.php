@@ -1,7 +1,7 @@
 <?php 
 $pag = 'mensagem_candidato';
 
-if(@$mensagem == 'ocultar'){
+if(@$mensagem_candidato == 'ocultar'){
     echo "<script>window.location='../index.php'</script>";
     exit();
 }

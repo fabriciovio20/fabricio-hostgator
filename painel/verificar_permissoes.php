@@ -6,35 +6,21 @@ $id_usuario = $_SESSION['id'];
 $home = 'ocultar';
 $configuracoes = 'ocultar';
 $horarios = 'ocultar';
+$configuracoes_sistema = 'ocultar';
 
 //grupo pessoas
 $usuarios = 'ocultar';
-$pacientes = 'ocultar';
 $funcionarios = 'ocultar';
+$candidatos = 'ocultar';
 
 //grupo cadastros
-$grupo_acessos = 'ocultar';
 $acessos = 'ocultar';
 $cargos = 'ocultar';
-$convenios = 'ocultar';
-$procedimentos = 'ocultar';
-$formas_pgto = 'ocultar';
-$frequencias = 'ocultar';
-$grupos_ana = 'ocultar';
-$itens_ana = 'ocultar';
-$ferias = 'ferias';
+$grupo_acessos = 'ocultar';
+$mensagem = 'ocultar';
 
-//grupo financeiro
-$pagar = 'ocultar';
-$receber = 'ocultar';
-$comissoes = 'ocultar';
-$rel_lucro = 'ocultar';
-$rel_financeiro = 'ocultar';
-$recebimento_convenio = 'ocultar';
-
-//grupo agendamentos
-$agendamentos = 'ocultar';
-$rel_agendamentos = 'ocultar';
+//grupo Processo Seletivo
+$mensagem_candidato = 'ocultar';
 
 $query = $pdo->query("SELECT * FROM usuarios_permissoes where usuario = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -58,19 +44,22 @@ if($total_reg > 0){
 			$configuracoes = '';
 		}
 
+		if($chave == 'configuracoes_sistema'){
+			$configuracoes_sistema = '';
+		}
+
 
 		if($chave == 'usuarios'){
 			$usuarios = '';
-		}
-
-		if($chave == 'pacientes'){
-			$pacientes = '';
 		}
 
 		if($chave == 'funcionarios'){
 			$funcionarios = '';
 		}
 
+		if($chave == 'candidatos'){
+			$candidatos = '';
+		}
 
 		if($chave == 'grupo_acessos'){
 			$grupo_acessos = '';
@@ -84,81 +73,13 @@ if($total_reg > 0){
 			$cargos = '';
 		}
 
-		if($chave == 'convenios'){
-			$convenios = '';
+		if($chave == 'mensagem'){
+			$mensagem = '';
 		}
 
-		if($chave == 'procedimentos'){
-			$procedimentos = '';
+		if($chave == 'mensagem_candidato'){
+			$mensagem_candidato = '';
 		}
-
-		if($chave == 'formas_pgto'){
-			$formas_pgto = '';
-		}
-
-		if($chave == 'frequencias'){
-			$frequencias = '';
-		}
-
-		if($chave == 'grupos_ana'){
-			$grupos_ana = '';
-		}
-
-		if($chave == 'itens_ana'){
-			$itens_ana = '';
-		}
-
-		if($chave == 'ferias'){
-			$ferias = '';
-		}
-
-
-		if($chave == 'horarios'){
-			$horarios = '';
-		}
-
-
-
-
-
-		if($chave == 'pagar'){
-			$pagar = '';
-		}
-
-
-		if($chave == 'receber'){
-			$receber = '';
-		}
-
-
-		if($chave == 'comissoes'){
-			$comissoes = '';
-		}
-
-
-		if($chave == 'rel_lucro'){
-			$rel_lucro = '';
-		}
-
-		if($chave == 'rel_financeiro'){
-			$rel_financeiro = '';
-		}
-
-		if($chave == 'recebimento_convenio'){
-			$recebimento_convenio = '';
-		}
-
-
-
-
-		if($chave == 'agendamentos'){
-			$agendamentos = '';
-		}
-
-		if($chave == 'rel_agendamentos'){
-			$rel_agendamentos = '';
-		}
-
 
 	}
 
@@ -199,31 +120,23 @@ if($pag_inicial == ''){
 		exit();
 }
 
-if($usuarios == 'ocultar' and $funcionarios == 'ocultar' and $pacientes == 'ocultar'){
+if($usuarios == 'ocultar' and $funcionarios == 'ocultar' and $candidatos == 'ocultar'){
 	$menu_pessoas = 'ocultar';
 }else{
 	$menu_pessoas = '';
 }
 
 
-if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar' and $convenios == 'ocultar' and $procedimentos == 'ocultar' and $formas_pgto == 'ocultar' and $frequencias == 'ocultar' and $grupos_ana == 'ocultar' and $itens_ana == 'ocultar' and $ferias == 'ocultar'){
+if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar' and $mensagem == 'ocultar'){
 	$menu_cadastros = 'ocultar';
 }else{
 	$menu_cadastros = '';
 }
 
-
-if($pagar == 'ocultar' and $receber == 'ocultar' and $comissoes == 'ocultar' and $rel_financeiro == 'ocultar' and $rel_lucro == 'ocultar' and $recebimento_convenio == 'ocultar'){
-	$menu_financeiro = 'ocultar';
+if($mensagem_candidato == 'ocultar'){
+	$menu_processo_seletivo = 'ocultar';
 }else{
-	$menu_financeiro = '';
-}
-
-
-if($agendamentos == 'ocultar' and $rel_agendamentos == 'ocultar'){
-	$menu_agendamentos = 'ocultar';
-}else{
-	$menu_agendamentos = '';
+	$menu_processo_seletivo = '';
 }
 
 ?>

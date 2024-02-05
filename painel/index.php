@@ -47,7 +47,10 @@ $data_atual = date('Y-m-d');
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 
 	<!-- font-awesome icons CSS -->
-	<link href="css/font-awesome.css" rel="stylesheet"> 
+	<!-- <link href="css/font-awesome.css" rel="stylesheet"> -->
+	<link href="css/fontawesome.css" rel="stylesheet">
+	<link href="css/brands.css" rel="stylesheet">
+	<link href="css/solid.css" rel="stylesheet">
 	<!-- //font-awesome icons CSS-->
 
 	<!-- side nav css file -->
@@ -156,7 +159,7 @@ $data_atual = date('Y-m-d');
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<h1><a class="navbar-brand" href="index.php"><span class="fa fa-stethoscope"></span> Sistema<span class="dashboard_text"><?php echo $nome_sistema ?></span></a></h1>
+						<h1><a class="navbar-brand" href="index.php"><i class="fa-solid fa-earth-americas"></i> Sistema<span class="dashboard_text"><?php echo $nome_sistema ?></span></a></h1>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">

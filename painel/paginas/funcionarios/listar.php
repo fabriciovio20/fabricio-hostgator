@@ -38,16 +38,17 @@ for($i=0; $i<$linhas; $i++){
 	$dataF = implode('/', array_reverse(explode('-', $data)));
 
 	if($ativo == 'Sim'){
-	$icone = 'fa-check-square';
+	$icone = '<i class="fa-solid fa-square-check" style="color: #1ac125;"></i>';
 	$titulo_link = 'Desativar Usuário';
 	$acao = 'Não';
 	$classe_ativo = '';
 	}else{
-		$icone = 'fa-square-o';
+		$icone = '<i class="fa-solid fa-minus" style="color: #ff1414;"></i>';
 		$titulo_link = 'Ativar Usuário';
 		$acao = 'Sim';
 		$classe_ativo = '#c4c4c4';
 	}
+
 
 
 	$tel_pessoaF = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
@@ -80,10 +81,10 @@ echo <<<HTML
 <big><a href="#" onclick="mostrar('{$registro}','{$nome}','{$email}','{$telefone}','{$cpf}','{$ativo}','{$dataF}', '{$nivel}', '{$foto}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
 
 
-<big><a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}"><i class="fa {$icone} text-success"></i></a></big>
+<big><a href="#" onclick="ativar('{$id}', '{$acao}')" title="{$titulo_link}">{$icone}</i></a></big>
 
 
-<big><a class="" href="http://api.whatsapp.com/send?1=pt_BR&phone={$tel_pessoaF}" title="Whatsapp" target="_blank"><i class="fa fa-whatsapp " style="color:green"></i></a></big>
+<big><a class="" href="http://api.whatsapp.com/send?1=pt_BR&phone={$tel_pessoaF}" title="Whatsapp" target="_blank"><i class="fa-brands fa-whatsapp" style="color: #1c891a;"></i></a></big>
 
 </td>
 </tr>

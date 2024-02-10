@@ -24,7 +24,7 @@ for($i=0; $i<$linhas; $i++){
 	$id = $res[$i]['id'];
 	$nome = $res[$i]['nome'];
 
-$query2 = $pdo->query("SELECT * from usuarios where nivel = '$nome' ");
+$query2 = $pdo->query("SELECT * from funcionarios where nivel = '$nome' ");
 $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 $total_acessos = @count($res2);
 		
@@ -40,7 +40,7 @@ echo <<<HTML
 	<big><a href="#" onclick="editar('{$id}','{$nome}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 	<li class="dropdown head-dpdn2" style="display: inline-block;">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa fa-trash-o text-danger"></i></big></a>
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa-solid fa-trash-can text-danger"></i></big></a>
 
 		<ul class="dropdown-menu" style="margin-left:-230px;">
 		<li>

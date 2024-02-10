@@ -7,7 +7,7 @@ if(@$acessos == 'ocultar'){
 }	
  ?>
 
-<a onclick="inserir()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Acesso</a>
+<a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Acesso</a>
 
 
 
@@ -114,5 +114,15 @@ if(@$acessos == 'ocultar'){
 <script type="text/javascript">var pag = "<?=$pag?>"</script>
 <script src="js/ajax.js"></script>
 
+
+<script type="text/javascript">
+    function limpar(){
+        $('#id').val('');		
+        $('#nome').val('');
+        $('#chave').val('');
+        $('#grupo').val('');
+        $('#pagina').val('');
+    }
+</script>
 
 

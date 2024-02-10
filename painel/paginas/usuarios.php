@@ -93,13 +93,13 @@ if(@$usuarios == 'ocultar'){
 
 					<div class="row">
 
-						<div class="col-md-6">							
+						<div class="col-md-4">							
 								<label>Telefone</label>
 								<input type="text" class="form-control" id="telefone" name="telefone" placeholder="Seu Telefone" required>							
 						</div>
 						
 
-						<div class="col-md-6">							
+						<div class="col-md-8">							
 								<label>Nível</label>
 								<select class="form-control sel" name="nivel" id="nivel" required style="width:100%">
 								 <?php 

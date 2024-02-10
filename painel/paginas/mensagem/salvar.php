@@ -398,7 +398,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 	
 			}
 		}
-	}elseif($filial != '' and $check == 'Sim'){
+	}elseif($filial != 'todos' and $check == 'Sim'){
 	
 		$query3 = $pdo->query("SELECT * from funcionarios where filial = '$filial' AND ativo != 'não'");
 		$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
@@ -452,7 +452,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 			}
 		}
 	
-	}elseif($filial != '' and $check == 'Não'){
+	}elseif($filial != 'todos' and $check == 'Não'){
 	
 		$query3 = $pdo->query("SELECT * from funcionarios where filial = '$filial' AND ativo != 'não'");
 		$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);

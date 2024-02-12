@@ -17,10 +17,14 @@ $candidatos = 'ocultar';
 $acessos = 'ocultar';
 $cargos = 'ocultar';
 $grupo_acessos = 'ocultar';
+$filiais = 'ocultar';
 $mensagem = 'ocultar';
 
 //grupo Processo Seletivo
 $mensagem_candidato = 'ocultar';
+
+//grupo Ocorrência Ponto
+$ocorrencias = 'ocultar';
 
 $query = $pdo->query("SELECT * FROM usuarios_permissoes where usuario = '$id_usuario'");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -73,12 +77,20 @@ if($total_reg > 0){
 			$cargos = '';
 		}
 
+		if($chave == 'filiais'){
+			$filiais = '';
+		}
+
 		if($chave == 'mensagem'){
 			$mensagem = '';
 		}
 
 		if($chave == 'mensagem_candidato'){
 			$mensagem_candidato = '';
+		}
+
+		if($chave == 'ocorrencias'){
+			$ocorrencias = '';
 		}
 
 	}
@@ -127,7 +139,7 @@ if($usuarios == 'ocultar' and $funcionarios == 'ocultar' and $candidatos == 'ocu
 }
 
 
-if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar' and $mensagem == 'ocultar'){
+if($grupo_acessos == 'ocultar' and $acessos == 'ocultar' and $cargos == 'ocultar' and $filiais == 'ocultar' and $mensagem == 'ocultar'){
 	$menu_cadastros = 'ocultar';
 }else{
 	$menu_cadastros = '';
@@ -137,6 +149,12 @@ if($mensagem_candidato == 'ocultar'){
 	$menu_processo_seletivo = 'ocultar';
 }else{
 	$menu_processo_seletivo = '';
+}
+
+if($ocorrencias == 'ocultar'){
+	$menu_ocorrencias = 'ocultar';
+}else{
+	$menu_ocorrencias = '';
 }
 
 ?>

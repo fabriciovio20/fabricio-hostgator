@@ -1,13 +1,13 @@
 <?php 
-$pag = 'grupo_acessos';
+$pag = 'filiais';
 
-if(@$grupo_acessos == 'ocultar'){
+if(@$filiais == 'ocultar'){
 	echo "<script>window.location='../index.php'</script>";
     exit();
 }
 
  ?>
-<a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Grupo</a>
+<a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Filiais</a>
 
 
 
@@ -47,7 +47,7 @@ if(@$grupo_acessos == 'ocultar'){
 					<div class="row">
 						<div class="col-md-6">							
 								<label>Nome</label>
-								<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome do Grupo" required>							
+								<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome Filial" required>							
 						</div>
 
 						<div class="col-md-6" style="margin-top: 22px">							
@@ -83,4 +83,32 @@ if(@$grupo_acessos == 'ocultar'){
         $('#id').val('');		
         $('#nome').val('');
     }
+</script>
+
+<script type="text/javascript">
+
+function excluir(id){	
+        $('#mensagem-excluir').text('')
+        
+        $.ajax({
+            url: 'paginas/' + pag + "/excluir.php",
+            method: 'POST',
+            data: {id},
+            dataType: "html",
+
+            success:function(mensagem){
+				showLoading_excluir();
+                if (mensagem.trim() == "Excluído com Sucesso") {  
+
+                    listar();
+					hideLoading()
+                } else {
+                    $('#mensagem-excluir').addClass('text-danger')
+                    $('#mensagem-excluir').text(mensagem)
+					hideLoading()
+                }
+            }
+        });
+    }
+
 </script>

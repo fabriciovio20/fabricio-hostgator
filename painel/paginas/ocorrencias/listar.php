@@ -1,5 +1,5 @@
 <?php 
-$tabela = 'mensagem_entrevista';
+$tabela = 'ocorrencias';
 require_once("../../../conexao.php");
 
 $query = $pdo->query("SELECT * from $tabela order by id desc");
@@ -10,10 +10,11 @@ echo <<<HTML
 <small>
 	<table class="table table-hover" id="tabela">
 	<thead> 
-	<tr>
-	<th>Data Envio</th>	
-	<th>Data Entrevista</th>
-	<th>Mensagem Enviada</th>
+	<tr> 
+	<th>Nome</th>		
+	<th class="esc">Ocorrência</th>
+	<th>Data</th>		
+	<th>Duração</th>		
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -23,25 +24,28 @@ HTML;
 
 for($i=0; $i<$linhas; $i++){
 	$id = $res[$i]['id'];
-	$data_envio = $res[$i]['data_envio'];
-	$data_envio2 = date('Y-m-d', strtotime($res[$i]['data_envio']));
-	$data_envioF = implode('/', array_reverse(explode('-', $data_envio2)));
-	$data_entrevista = $res[$i]['data_entrevista'];
-	$data_entrevistaF = implode('/', array_reverse(explode('-', $data_entrevista)));
-	$msg_env = $res[$i]['mensagem'];
-	$msg_env_shortened = implode(' ', array_slice(str_word_count($msg_env, 1), 0, 20)) . ' ...';
-		
+	$registro = $res[$i]['registro'];
+	$nome = $res[$i]['nome'];
+	$descricao = $res[$i]['descricao'];
+	$data = $res[$i]['dataF'];
+	$duracao = $res[$i]['duracao'];
+	$mostrar_adm = "";
+	$dataF = implode('/', array_reverse(explode('-', $data)));
+
+	
+
 echo <<<HTML
-<tr>
-<td>
-<input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
-{$data_envioF}
-</td>
-<td>{$data_entrevistaF}</td>
-<td>{$msg_env_shortened}</td>
 
 <td>
-	<big><a href="#" onclick="editar('{$id}','{$data_envio}','{$data_entrevista}','{$msg_env}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+<input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
+{$nome}
+</td>
+<td class="esc">{$descricao}</td>
+<td class="esc">{$dataF}</td>
+<td class="esc">{$duracao}</td>
+<td>
+
+<big><a href="#" onclick="editar('{$id}','{$registro}','{$nome}','{$descricao}','{$data}','{$duracao}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 	<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa-solid fa-trash-can text-danger"></i></big></a>
@@ -54,6 +58,8 @@ echo <<<HTML
 		</li>										
 		</ul>
 </li>
+
+<big><a href="#" onclick="mostrar('{$registro}','{$nome}','{$descricao}','{$dataF}','{$duracao}')" title="Mostrar Dados"><i class="fa fa-info-circle text-primary"></i></a></big>
 
 
 </td>
@@ -72,10 +78,7 @@ HTML;
 }else{
 	echo '<small>Nenhum Registro Encontrado!</small>';
 }
-
 ?>
-
-
 
 <script type="text/javascript">
 	$(document).ready( function () {		
@@ -90,29 +93,41 @@ HTML;
 </script>
 
 <script type="text/javascript">
-	function editar(id, data_envio, data_entrevista, msg_env){
+
+function editar(id, registro, nome, descricao, data, duracao){
 		$('#mensagem').text('');
-    	$('#titulo_inserir').text('Editar Registro');
+    	$('#titulo_inserir4').text('Editar Registro');
 
     	$('#id').val(id);
-    	$('#data_envio').val(data_envio);
-    	$('#data_entrevista').val(data_entrevista);
-    	$('#msg_env').val(msg_env);
+    	$('#registro').val(registro);
+    	$('#nome').val(nome);
+    	$('#descricao').val(descricao);
+    	$('#data').val(data);
+    	$('#duracao').val(duracao);
     	
-    
-    	$('#modalForm').modal('show');
+    	$('#modalForm4').modal('show');
 	}
 
 
 
+	function mostrar(registro, nome, descricao, data, duracao){
+		    	
+    	$('#registro_dados').text(registro);
+    	$('#titulo_dados').text(nome);
+    	$('#descricao_dados').text(descricao);
+    	$('#data_dados').text(data);
+    	$('#duracao_dados').text(duracao);
+
+    	$('#modalDados').modal('show');
+	}
+
 	function limparCampos(){
 		$('#id').val('');
-    	$('#data_envio').val('');
-    	$('#data_entrevista').val('');
-    	$('#msg_env').val('');
-
-    
-
+		$('#registro').val('');
+    	$('#nome').val('');
+    	$('#descricao').val('');
+    	$('#data').val('');
+    	$('#duracao').val('');
     	$('#ids').val('');
     	$('#btn-deletar').hide();	
 	}
@@ -147,4 +162,19 @@ HTML;
 
 		limparCampos();
 	}
+
+
+	function permissoes(id, nome){
+		    	
+    	$('#id_permissoes').val(id);
+    	$('#nome_permissoes').text(nome);    	
+
+    	$('#modalPermissoes').modal('show');
+    	listarPermissoes(id);
+	}
+
+	
+
+
+	
 </script>

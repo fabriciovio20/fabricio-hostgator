@@ -10,7 +10,7 @@ if(@$mensagem == 'ocultar'){
 <a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Mensagens</a>
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
-    <a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa fa-trash-o"></span> Deletar</a>
+    <a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa-solid fa-trash-can"></span> Deletar</a>
     <ul class="dropdown-menu">
         <li>
             <div class="notification_desc2">
@@ -60,12 +60,22 @@ if(@$mensagem == 'ocultar'){
                         
                         <div class="col-md-4">							
                             <label>Filial</label>
-                            <select class="form-control" name="filial" id="filial">
-                                <option value="todos">Todos</option>
-                                <option value="motores">Motores</option>	
-                                <option value="cgl">CGL</option>	
-                                <option value="filtros">Filtros</option>	
-                            </select>							
+                            <select class="form-control sel1" name="filial" id="filial" required style="width:100%">
+									<?php 
+										$query = $pdo->query("SELECT * from filiais order by nome asc");
+										$res = $query->fetchAll(PDO::FETCH_ASSOC);
+										$linhas = @count($res);
+										if($linhas > 0){
+										for($i=0; $i<$linhas; $i++){
+									?>
+									<option value="<?php echo $res[$i]['nome'] ?>"><?php echo STRTOUPPER($res[$i]['nome']) ?></option>
+                                    
+									
+									<?php } }else{ ?>
+										<option value="">Cadastre uma Filial</option>
+									<?php } ?>
+                                    <option value="todos">TODOS</option>
+								</select>						
                         </div>
                     
                         <div class="col-md-8">							
@@ -164,7 +174,7 @@ if(@$mensagem == 'ocultar'){
     function limpar(){
         $('#id').val('');		
         $('#data_envio').val('');
-        $('#filial').val('todos');
+        $('#filial').val('todos').change();
         $('#msg_env').val('');		
         $('#target-usu').attr('src', 'images/perfil/sem-foto.jpg');	
         $('#foto_perfil1').val('');	
@@ -303,4 +313,12 @@ function listarFuncionarios(id){
         }
     });
 }
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('.sel1').select2({
+    		dropdownParent: $('#modalForm')
+    	});
+	});
 </script>

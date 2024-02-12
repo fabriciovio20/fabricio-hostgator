@@ -1,5 +1,5 @@
 <?php 
-$tabela = 'mensagem_entrevista';
+$tabela = 'filiais';
 require_once("../../../conexao.php");
 
 $query = $pdo->query("SELECT * from $tabela order by id desc");
@@ -11,9 +11,8 @@ echo <<<HTML
 	<table class="table table-hover" id="tabela">
 	<thead> 
 	<tr>
-	<th>Data Envio</th>	
-	<th>Data Entrevista</th>
-	<th>Mensagem Enviada</th>
+	<th>Nome</th>	
+	<th>Usuários</th>
 	<th>Ações</th>
 	</tr> 
 	</thead> 
@@ -23,25 +22,22 @@ HTML;
 
 for($i=0; $i<$linhas; $i++){
 	$id = $res[$i]['id'];
-	$data_envio = $res[$i]['data_envio'];
-	$data_envio2 = date('Y-m-d', strtotime($res[$i]['data_envio']));
-	$data_envioF = implode('/', array_reverse(explode('-', $data_envio2)));
-	$data_entrevista = $res[$i]['data_entrevista'];
-	$data_entrevistaF = implode('/', array_reverse(explode('-', $data_entrevista)));
-	$msg_env = $res[$i]['mensagem'];
-	$msg_env_shortened = implode(' ', array_slice(str_word_count($msg_env, 1), 0, 20)) . ' ...';
+	$nome = strtoupper($res[$i]['nome']);
+
+$query2 = $pdo->query("SELECT * from funcionarios where filial = '$nome' ");
+$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+$total_acessos = @count($res2);
 		
 echo <<<HTML
 <tr>
 <td>
 <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
-{$data_envioF}
+{$nome}
 </td>
-<td>{$data_entrevistaF}</td>
-<td>{$msg_env_shortened}</td>
+<td class="esc">{$total_acessos}</td>
 
 <td>
-	<big><a href="#" onclick="editar('{$id}','{$data_envio}','{$data_entrevista}','{$msg_env}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
+	<big><a href="#" onclick="editar('{$id}','{$nome}')" title="Editar Dados"><i class="fa fa-edit text-primary"></i></a></big>
 
 	<li class="dropdown head-dpdn2" style="display: inline-block;">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><big><i class="fa-solid fa-trash-can text-danger"></i></big></a>
@@ -90,15 +86,12 @@ HTML;
 </script>
 
 <script type="text/javascript">
-	function editar(id, data_envio, data_entrevista, msg_env){
+	function editar(id, nome){
 		$('#mensagem').text('');
     	$('#titulo_inserir').text('Editar Registro');
 
     	$('#id').val(id);
-    	$('#data_envio').val(data_envio);
-    	$('#data_entrevista').val(data_entrevista);
-    	$('#msg_env').val(msg_env);
-    	
+    	$('#nome').val(nome);
     
     	$('#modalForm').modal('show');
 	}
@@ -107,10 +100,7 @@ HTML;
 
 	function limparCampos(){
 		$('#id').val('');
-    	$('#data_envio').val('');
-    	$('#data_entrevista').val('');
-    	$('#msg_env').val('');
-
+    	$('#nome').val('');
     
 
     	$('#ids').val('');

@@ -42,6 +42,8 @@ if ($extensao != "csv") {
 
                     $query->execute();
 
+                    
+
                     if ($query->rowCount() > 0) {
                         echo 'Linha ' . $contadorLinha . ': Dados salvos com sucesso<br>';
                     } else {
@@ -60,6 +62,7 @@ if ($extensao != "csv") {
 }
 
 echo 'Importação concluída com sucesso';
+
 
 // Função para formatar o número de telefone
 function formatarTelefone($numero) {

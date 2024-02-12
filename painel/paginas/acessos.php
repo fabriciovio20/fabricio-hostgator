@@ -12,7 +12,7 @@ if(@$acessos == 'ocultar'){
 
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
-		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa fa-trash-o"></span> Deletar</a>
+		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa-solid fa-trash-can"></span> Deletar</a>
 
 		<ul class="dropdown-menu">
 		<li>

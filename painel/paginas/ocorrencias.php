@@ -1,16 +1,15 @@
 <?php 
-$pag = 'candidatos';
+$pag = 'ocorrencias';
 @session_start(); // Iniciar a sessão
 
-if(@$candidatos == 'ocultar'){
+if(@$ocorrencias == 'ocultar'){
 	echo "<script>window.location='../index.php'</script>";
     exit();
 }
 
  ?>
-<a onclick="inserir(), limparCampos()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Candidatos</a>
 <a onclick="importar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Importar</a>
-<a onclick="inativar()" type="button" class="btn btn-danger"><span class="fa fa-plus"></span> Inativar em Massa</a>
+<a onclick="divulgar()" type="button" class="btn btn-success"><span class="fa fa-plus"></span>Divulgar Ocorrências</a>
 
 
 
@@ -33,120 +32,77 @@ if(@$candidatos == 'ocultar'){
 
 <input type="hidden" id="ids">
 
+
 <!-- Modal Perfil -->
-<div class="modal fade" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalForm4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir"></span></h4>
+				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_inserir4"></span></h4>
 				<button id="btn-fechar" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<form id="form">
-			<div class="modal-body">
-				
+				<div class="modal-body">
+					
 
-					<div class="row">
-						<div class="col-md-4">							
-								<label>Data Entrevista</label>
-								<input type="date" class="form-control" id="data_entrevista" name="data_entrevista" required>							
-						</div>
-						<div class="col-md-8">							
-								<label>Nome</label>
-								<input type="text" class="form-control" id="nome" name="nome" placeholder="Seu Nome" required>							
+						<div class="row">
+							<div class="col-md-4">							
+									<label>Registro</label>
+									<input type="text" class="form-control" id="registro" name="registro" placeholder="Registro" required>							
+							</div>
+							<div class="col-md-8">							
+									<label>Nome</label>
+									<input type="text" class="form-control" id="nome" name="nome" placeholder="Seu Nome" required>							
+							</div>
+							
 						</div>
 						
-					</div>
+						<div class="row">
 
+							<div class="col-md-6">							
+									<label>Descricao</label>
+									<input type="text" class="form-control" id="descricao" name="descricao" placeholder="descricao" required>							
+							</div>
 
-					<div class="row">
-
-						<div class="col-md-6">							
-								<label>Telefone</label>
-								<input type="text" class="form-control" id="telefone" name="telefone" placeholder="Seu Telefone" required>							
+							
 						</div>
 
+						<div class="row">
+
+							<div class="col-md-4">							
+									<label>Data</label>
+									<input type="date" class="form-control" id="data" name="data" required>							
+							</div>
+
+							<div class="col-md-3">							
+									<label>Duração</label>
+									<input type="number" step="0.01" class="form-control" id="duracao" name="duracao" placeholder="duracao" required>							
+							</div>
+
+							
+						</div>
+
+						<div class="row">
+
+							<div class="col-md-6" style="margin-top: 22px">							
+									<button type="submit" class="btn btn-primary">Salvar</button>					
+							</div>
+
+						</div>
+				
 						<input type="hidden" class="form-control" id="id" name="id">					
-					</div>
+
 					<br>
-				<small><div id="mensagem" align="center"></div></small>
-			</div>
-			<div class="modal-footer">       
-				<button type="submit" class="btn btn-primary">Salvar</button>
-			</div>
+					<small><div id="mensagem" align="center"></div></small>
+				</div>
+				
 			</form>
 		</div>
 	</div>
 </div>
 
-
-
-
-
-<!-- Modal Dados -->
-<div class="modal fade" id="modalDados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span id="nome_dados"></span></h4>
-				<button id="btn-fechar-dados" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			
-			<div class="modal-body">
-				<div class="row" >
-					<div class="col-md-6" style="margin-bottom: 5px">
-						<span><b>Telefone: </b></span><span id="telefone_dados"></span>
-					</div>
-
-					<div class="col-md-6" style="margin-bottom: 5px">
-						<span><b>Data Entrevista: </b></span><span id="data_entrevista_dados"></span>
-					</div>
-				</div>
-			</div>
-					
-		</div>
-	</div>
-</div>
-
-
-
-
-
-
-<!-- Modal Permissoes -->
-<div class="modal fade" id="modalPermissoes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="exampleModalLabel"><span id="nome_permissoes"></span>
-
-					<span style="position:absolute; right:35px">
-						<input class="form-check-input" type="checkbox" id="input-todos" onchange="marcarTodos()">
-						<label class="" >Marcar Todos</label>
-					</span>
-
-				</h4>
-				<button id="btn-fechar-permissoes" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			
-			<div class="modal-body">
-				<div class="row" id="listar_permissoes">
-					
-				</div>
-
-				<br>
-				<input type="hidden" name="id" id="id_permissoes">
-				<small><div id="mensagem_permissao" align="center" class="mt-3"></div></small>		
-			</div>
-					
-		</div>
-	</div>
-</div>
 
 
 
@@ -214,11 +170,14 @@ if(@$candidatos == 'ocultar'){
 
 					<div class="row">
 						<div class="col-md-12">							
-								<label>Importar Dados</label>
-								<input type="file" class="form-control" id="arq_inat" name="arq_inat" accept="text/csv">							
+							<label>Enviar pendências das ocorrências aos colaboradores ?</label>							
 						</div>
 						
 					</div>
+
+					<div class="col-md-4 hidden">
+                        <input type="checkbox" id="checkbox_oco" name="checkbox_oco">
+                    </div>
 
 					<div class="row">
 					<div class="col-md-6" style="margin-top: 22px">							
@@ -236,6 +195,44 @@ if(@$candidatos == 'ocultar'){
 			</div>
 			
 			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal Dados -->
+<div class="modal fade" id="modalDados" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="exampleModalLabel"><span id="titulo_dados"></span></h4>
+				<button id="btn-fechar-dados" type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -25px">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div class="modal-body">
+				<div class="row" style="margin-top: 0px">
+					<div class="col-md-6" style="margin-bottom: 5px">
+						<span><b>Registro: </b></span><span id="registro_dados"></span>
+					</div>
+
+					<div class="col-md-8" style="margin-bottom: 5px">
+						<span><b>Ocorrência: </b></span><span id="descricao_dados"></span>
+					</div>
+
+
+					<div class="col-md-6" style="margin-bottom: 5px">
+						<span><b>Data: </b></span><span id="data_dados"></span>
+					</div>
+
+					<div class="col-md-6" style="margin-bottom: 5px">
+						<span><b>Duração: </b></span><span id="duracao_dados"></span>
+					</div>
+
+				</div>
+			</div>
+					
 		</div>
 	</div>
 </div>
@@ -342,6 +339,16 @@ function importar() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'paginas/' + pag + '/importar.php', true);
 
+	xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Importação bem-sucedida, agora listamos os dados
+            listar();
+        } else {
+            console.log('Erro ao importar dados');
+        }
+    };
+
+
     xhr.send(formData);
 
 }
@@ -358,25 +365,37 @@ function ocultar(){
 $(document).ready(function() {
     $('#btn-enviar1').on('click', function(e) {
         e.preventDefault();
-        inativar();
-		ocultar1();
+	
+	var form = document.getElementById('form2');
+    var formData = new FormData(form);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'paginas/' + pag + '/divulgar.php', true);
+
+	xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Importação bem-sucedida, agora listamos os dados
+            listar();
+        } else {
+            console.log('Erro ao importar dados');
+        }
+    };
+
+    xhr.send(formData);
+		
+		
+	ocultar1();
+
+		
+	
 });
 
     });
 
-function inativar() {
+function divulgar() {
     $('#mensagem2').text('');
-    $('#titulo_inserir2').text('Inserir Registro');
+    $('#titulo_inserir2').text('Pendência Colaboradores');
     $('#modalForm2').modal('show');
-
-    var form = document.getElementById('form2');
-    var formData = new FormData(form);
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'paginas/' + pag + '/inativar.php', true);
-
-    xhr.send(formData);
-
 }
 
 function ocultar1(){
@@ -397,5 +416,25 @@ function limparCampos(){
 
 
 
+</script>
+
+<script type="text/javascript">
+	function listar(){
+	
+	var status = $('#buscar-func').val();	
+
+	
+    $.ajax({
+        url: 'paginas/' + pag + "/listar.php",
+        method: 'POST',
+        data: {status},
+        dataType: "html",
+
+        success:function(result){
+            $("#listar").html(result);
+            $('#mensagem-excluir').text('');
+        }
+    });
+}
 </script>
 

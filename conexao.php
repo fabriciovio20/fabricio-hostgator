@@ -23,15 +23,6 @@ if($url[1] == 'localhost/'){
 	$url_sistema = "http://$_SERVER[HTTP_HOST]/clinica/";
 }
 
-
-//variaveis globais
-$nome_sistema = 'Nome Sistema';
-$email_sistema = 'contato@hugocursos.com.br';
-$telefone_sistema = '(31)97527-5084';
-$email_rh1 = 'fabricio.farias@jsl.com.br';
-$email_ferias1 = 'fabriciovio10@gmail.com';
-
-
 //tabela config
 $query = $pdo->query("SELECT * from config");
 $res = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -47,15 +38,11 @@ $logo_sistema = $res[0]['logo'];
 $logo_rel = $res[0]['logo_rel'];
 $icone_sistema = $res[0]['icone'];
 $telefone_fixo = $res[0]['telefone_fixo'];
-$comissao_sistema = $res[0]['comissao'];
 $token = $res[0]['token'];
 $instancia = $res[0]['instancia'];
-$horas_confirmacao = $res[0]['horas_confirmacao'];
 $marca_dagua = $res[0]['marca_dagua'];
 $ativo_sistema = $res[0]['ativo'];
 
-
-$horas_confirmacaoF = $horas_confirmacao.':00:00';
 
 if($ativo_sistema != 'Sim' and $ativo_sistema != ""){
 	echo '<div align="center"><img src="painel/images/bloqueado.jpg" width="60%"></div>';

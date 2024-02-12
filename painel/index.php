@@ -198,9 +198,10 @@ $data_atual = date('Y-m-d');
 
 									<li class="<?php echo $grupo_acessos ?>"><a href="index.php?pagina=grupo_acessos"><i class="fa fa-angle-right"></i> Grupos</a></li>
 
-
+									<li class="<?php echo $filiais ?>"><a href="index.php?pagina=filiais"><i class="fa fa-angle-right"></i> Filiais</a></li>
 
 									<li class="<?php echo $mensagem ?>"><a href="index.php?pagina=mensagem"><i class="fa fa-angle-right"></i> Mensagem</a></li>
+
 									
 								</ul>
 							</li>
@@ -218,6 +219,20 @@ $data_atual = date('Y-m-d');
 								</ul>
 							</li>
 
+							
+
+							<li class="treeview <?php echo $menu_ocorrencias ?>">
+								<a href="#">
+								<i class="fa-regular fa-stopwatch"></i>
+									<span>Ocorrências Ponto</span>
+									<i class="fa fa-angle-left pull-right"></i>
+								</a>
+								<ul class="treeview-menu">
+
+									<li class="<?php echo $ocorrencias ?>"><a href="index.php?pagina=ocorrencias"><i class="fa fa-angle-right"></i> Ocorrências</a></li>
+									
+								</ul>
+							</li>
 
 							
 
@@ -489,23 +504,14 @@ $data_atual = date('Y-m-d');
 					</div>
 
 					<div class="row">
-						<div class="col-md-3">							
-								<label>Comissão %</label>
-								<input type="text" class="form-control" id="comissao_sistema" name="comissao_sistema" placeholder="Procedimentos" value="<?php echo @$comissao_sistema ?>">							
-						</div>
 
 						<div class="col-md-3">					
-								<label>Horas Confirmação</label>
-								<input type="text" class="form-control" id="horas_confirmacao" name="horas_confirmacao" placeholder="Mensagem Consulta" value="<?php echo @$horas_confirmacao ?>">							
-						</div>
-
-						<div class="col-md-3">					
-								<label>Token Whatsapp</label>
+								<label>Authkey Whatsapp</label>
 								<input type="text" class="form-control" id="token" name="token" placeholder="Token Api Whatsapp" value="<?php echo @$token ?>">							
 						</div>
 
 						<div class="col-md-3">					
-								<label>Instância Whatsapp</label>
+								<label>Appkey Whatsapp</label>
 								<input type="text" class="form-control" id="instancia" name="instancia" placeholder="Instancia Whatsapp" value="<?php echo @$instancia ?>">							
 						</div>
 					</div>

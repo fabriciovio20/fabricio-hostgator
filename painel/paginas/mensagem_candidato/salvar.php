@@ -21,14 +21,22 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 $total_reg = @count($res);
 
 //SCRIPT PARA SUBIR FOTO NO SERVIDOR
-if($id == ""){
-$query = $pdo->prepare("INSERT INTO $tabela SET  data_envio = :data_envio, data_entrevista = :data_entrevista, mensagem = :msg_env");
+if($id == "" && $check == "Sim"){
+	$query = $pdo->prepare("INSERT INTO $tabela SET  data_envio = :data_envio, data_entrevista = :data_entrevista, mensagem = :msg_env");
+	$query->bindValue(":data_envio", "$data_envio");
 	
-}else{
-$query = $pdo->prepare("UPDATE $tabela SET data_envio = :data_envio, data_entrevista = :data_entrevista, mensagem = :msg_env where id = '$id'");
+}elseif($id == "" && $check == "Não"){
+	$query = $pdo->prepare("INSERT INTO $tabela SET  data_envio = CURDATE(), data_entrevista = :data_entrevista, mensagem = :msg_env");
 
+}else{
+
+	$query = $pdo->prepare("UPDATE $tabela SET data_envio = :data_envio, data_entrevista = :data_entrevista, mensagem = :msg_env where id = '$id'");
+	if ($check == "Não") {
+        $query->bindValue(":data_envio", date('Y-m-d'));
+    } else {
+        $query->bindValue(":data_envio", "$data_envio");
+    }
 }
-$query->bindValue(":data_envio", "$data_envio");
 $query->bindValue(":data_entrevista", "$data_entrevista");
 $query->bindValue(":msg_env", "$msg_env");
 

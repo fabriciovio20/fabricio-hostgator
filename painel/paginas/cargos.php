@@ -7,12 +7,12 @@ if(@$cargos == 'ocultar'){
 }
 
  ?>
-<a onclick="inserir()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Cargo</a>
+<a onclick="inserir(), limpar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Cargo</a>
 
 
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
-		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa fa-trash-o"></span> Deletar</a>
+		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa-solid fa-trash-can"></span> Deletar</a>
 
 		<ul class="dropdown-menu">
 		<li>
@@ -78,3 +78,9 @@ if(@$cargos == 'ocultar'){
 
 
 
+<script type="text/javascript">
+    function limpar(){
+        $('#id').val('');		
+        $('#nome').val('');
+    }
+</script>

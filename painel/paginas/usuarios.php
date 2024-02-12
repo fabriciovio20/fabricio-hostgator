@@ -15,7 +15,7 @@ if(@$usuarios == 'ocultar'){
 
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
-		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa fa-trash-o"></span> Deletar</a>
+		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa-solid fa-trash-can"></span> Deletar</a>
 
 		<ul class="dropdown-menu">
 		<li>
@@ -125,11 +125,20 @@ if(@$usuarios == 'ocultar'){
 
 						<div class="col-md-5">							
 								<label>Filial</label>
-								<select class="form-control" name="filial" id="filial">
-									<option value="motores">Motores</option>
-									<option value="cgl">CGL</option>
-									<option value="filtros">Filtros</option>
-								</select>								
+								<select class="form-control sel1" name="filial" id="filial" required style="width:100%">
+									<?php 
+										$query = $pdo->query("SELECT * from filiais order by nome asc");
+										$res = $query->fetchAll(PDO::FETCH_ASSOC);
+										$linhas = @count($res);
+										if($linhas > 0){
+										for($i=0; $i<$linhas; $i++){
+									?>
+									<option value="<?php echo $res[$i]['nome'] ?>"><?php echo STRTOUPPER($res[$i]['nome']) ?></option>
+									
+									<?php } }else{ ?>
+										<option value="">Cadastre uma Filial</option>
+									<?php } ?>
+								</select>							
 						</div>
 
 						<div class="col-md-7">							
@@ -445,6 +454,7 @@ $(document).ready(function() {
     });
 
 function importar() {
+	event.preventDefault();
     $('#mensagem1').text('');
     $('#titulo_inserir1').text('Inserir Registro');
     $('#modalForm1').modal('show');
@@ -455,8 +465,17 @@ function importar() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'paginas/usuarios/importar.php', true);
 
-    xhr.send(formData);
+	xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Importação bem-sucedida, agora listamos os dados
+            listar();
+        } else {
+            console.log('Erro ao importar dados');
+        }
+    };
 
+    xhr.send(formData);
+	limpar_import();
 }
 
 function ocultar(){
@@ -488,8 +507,17 @@ function inativar() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'paginas/usuarios/inativar.php', true);
 
-    xhr.send(formData);
+	xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Importação bem-sucedida, agora listamos os dados
+            listar();
+        } else {
+            console.log('Erro ao importar dados');
+        }
+    };
 
+    xhr.send(formData);
+	limpar_inativar();
 }
 
 function ocultar1(){
@@ -505,15 +533,39 @@ function ocultar1(){
         $('#nome').val('');
         $('#telefone').val('');
         $('#nivel').val('Administrador');
-        $('#filial').val('motores');
+        $('#filial').val('');
         $('#cpf').val('');		
         $('#email').val('');		
     }
 </script>
 
 <script type="text/javascript">
+    function limpar_import(){
+        $('#id1').val('');		
+        $('#arquivo').val('');
+    }
+</script>
+
+
+<script type="text/javascript">
+    function limpar_inativar(){
+        $('#id2').val('');		
+        $('#arq_inat').val('');
+    }
+</script>
+
+
+<script type="text/javascript">
 	$(document).ready(function() {
     	$('.sel').select2({
+    		dropdownParent: $('#modalForm')
+    	});
+	});
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+    	$('.sel1').select2({
     		dropdownParent: $('#modalForm')
     	});
 	});

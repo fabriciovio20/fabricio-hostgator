@@ -14,6 +14,7 @@ echo <<<HTML
 	<table class="table table-hover" id="tabela">
 	<thead> 
 	<tr> 
+	<th>Registro</th>	
 	<th>Nome</th>	
 	<th class="esc">Cadastrado em</th>		
 	<th class="esc">Nível / Cargo</th>	
@@ -65,8 +66,9 @@ echo <<<HTML
 <tr style="color:{$classe_ativo}">
 <td>
 <input type="checkbox" id="seletor-{$id}" class="form-check-input" onchange="selecionar('{$id}')">
-{$nome}
+{$registro}
 </td>
+<td class="">{$nome}</td>
 <td class="esc">{$dataF}</td>
 <td class="esc">{$nivel}</td>
 <td class="esc"><img src="images/perfil/{$foto}" width="25px"></td>

@@ -95,7 +95,7 @@ HTML;
 
     	$('#id').val(id);
     	$('#data_envio').val(data_envio);
-    	$('#filial').val(filial);
+    	$('#filial').val(filial).change();
     	$('#msg_env').val(msg_env);
     	$('#foto').val(foto);
     

@@ -5,13 +5,18 @@ $pag = 'ocorrencias';
 if(@$ocorrencias == 'ocultar'){
 	echo "<script>window.location='../index.php'</script>";
     exit();
+
 }
+
+	$query = $pdo->query("SELECT * from ocorrencias order by nome asc");
+	$res = $query->fetchAll(PDO::FETCH_ASSOC);
+	$linhas = @count($res);
+	
 
  ?>
 <a onclick="importar()" type="button" class="btn btn-primary"><span class="fa fa-plus"></span> Importar</a>
-<a onclick="divulgar()" type="button" class="btn btn-success"><span class="fa fa-plus"></span>Divulgar Ocorrências</a>
 
-
+<a id="btn-divulgar" onclick="divulgar()" type="button" class="btn btn-success hidden"><span class="fa fa-plus"></span> Divulgar Ocorrências</a>
 
 <li class="dropdown head-dpdn2" style="display: inline-block;">		
 		<a href="#" data-toggle="dropdown"  class="btn btn-danger dropdown-toggle" id="btn-deletar" style="display:none"><span class="fa-solid fa-trash-can"></span> Deletar</a>
@@ -322,6 +327,8 @@ if(@$ocorrencias == 'ocultar'){
 $(document).ready(function() {
     $('#btn-enviar').on('click', function(e) {
         e.preventDefault();
+
+		$('#btn-divulgar').removeClass('hidden'); // Mostrar o botão
 		showLoading();
         importar();
 		ocultar();
@@ -346,6 +353,7 @@ function importar() {
             // Importação bem-sucedida, agora listamos os dados
             listar();
 			hideLoading();
+            
         } else {
             console.log('Erro ao importar dados');
         }

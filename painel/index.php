@@ -4,7 +4,7 @@ require_once("../conexao.php");
 require_once("verificar.php");
 
 $pag_inicial = 'home';
-if(@$_SESSION['nivel'] != 'Administrador'){
+if(@$_SESSION['nivel'] != 'ADMINISTRADOR'){
 	require_once("verificar_permissoes.php");
 }
 

@@ -322,8 +322,10 @@ if(@$ocorrencias == 'ocultar'){
 $(document).ready(function() {
     $('#btn-enviar').on('click', function(e) {
         e.preventDefault();
+		showLoading();
         importar();
 		ocultar();
+		
 });
 
     });
@@ -343,6 +345,7 @@ function importar() {
         if (xhr.status === 200) {
             // Importação bem-sucedida, agora listamos os dados
             listar();
+			hideLoading();
         } else {
             console.log('Erro ao importar dados');
         }
@@ -369,23 +372,29 @@ $(document).ready(function() {
 	var form = document.getElementById('form2');
     var formData = new FormData(form);
 
+	showLoading();
+
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'paginas/' + pag + '/divulgar.php', true);
 
 	xhr.onload = function () {
         if (xhr.status === 200) {
             // Importação bem-sucedida, agora listamos os dados
-            listar();
+			        
+			listar();
+			hideLoading();
+			
         } else {
             console.log('Erro ao importar dados');
+			hideLoading();
+			
         }
     };
 
     xhr.send(formData);
 		
-		
+	
 	ocultar1();
-
 		
 	
 });
@@ -433,8 +442,33 @@ function limparCampos(){
         success:function(result){
             $("#listar").html(result);
             $('#mensagem-excluir').text('');
+
         }
     });
 }
 </script>
 
+<script type="text/javascript">
+
+function showLoading(){
+        const div = document.createElement("div");
+        div.classList.add("opacity");
+        const small = document.createElement("small");
+        small.classList.add("loading", "centralize");
+        small.textContent = "Carregando";
+        small.style.color = "white";
+        const updateDiv = document.createElement("div");
+        updateDiv.classList.add("update");
+        small.appendChild(updateDiv);
+        div.appendChild(small);
+        document.body.appendChild(div);
+
+    }
+    function hideLoading(){
+        const loadings = document.getElementsByClassName("opacity");
+        if (loadings.length){
+            loadings[0].remove();
+        }
+    }
+
+</script>

@@ -325,8 +325,10 @@ if(@$candidatos == 'ocultar'){
 $(document).ready(function() {
     $('#btn-enviar').on('click', function(e) {
         e.preventDefault();
+		showLoading();
         importar();
 		ocultar();
+		hideLoading();
 });
 
     });
@@ -358,8 +360,10 @@ function ocultar(){
 $(document).ready(function() {
     $('#btn-enviar1').on('click', function(e) {
         e.preventDefault();
+		showLoading();
         inativar();
 		ocultar1();
+		hideLoading();
 });
 
     });

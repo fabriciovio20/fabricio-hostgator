@@ -440,8 +440,10 @@ if(@$funcionarios == 'ocultar'){
 $(document).ready(function() {
     $('#btn-enviar').on('click', function(e) {
         e.preventDefault();
+		showLoading();
         importar();
 		ocultar();
+		
 });
 
     });
@@ -458,10 +460,14 @@ function importar() {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'paginas/funcionarios/importar.php', true);
 
+	
 	xhr.onload = function () {
         if (xhr.status === 200) {
             // Importação bem-sucedida, agora listamos os dados
+
             listar();
+			hideLoading();
+
         } else {
             console.log('Erro ao importar dados');
         }
@@ -483,8 +489,10 @@ function ocultar(){
 $(document).ready(function() {
     $('#btn-enviar1').on('click', function(e) {
         e.preventDefault();
+		showLoading();
         inativar();
 		ocultar1();
+		
 });
 
     });
@@ -504,6 +512,7 @@ function inativar() {
         if (xhr.status === 200) {
             // Importação bem-sucedida, agora listamos os dados
             listar();
+			hideLoading();
         } else {
             console.log('Erro ao importar dados');
         }

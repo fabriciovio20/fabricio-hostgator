@@ -54,7 +54,7 @@ for($i=0; $i<$linhas; $i++){
 	}
 
 	$mostrar_adm = '';
-	if($nivel == 'Administrador'){
+	if($nivel == 'ADMINISTRADOR'){
 		$senha = '***';
 		$mostrar_adm = 'ocultar';
 	}

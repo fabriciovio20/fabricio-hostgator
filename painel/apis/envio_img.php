@@ -13,7 +13,7 @@ curl_setopt_array($curl, array(
   CURLOPT_POSTFIELDS => array(
   'appkey' => $instancia,
   'authkey' => $token,
-  'to' => $telefone_envio,
+  'to' => $telefones_json,
   'message' => $mensagem,
   'agendamento' => $data_agd2,
   'descricao' => $mensagem,

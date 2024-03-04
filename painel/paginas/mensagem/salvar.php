@@ -80,7 +80,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 	$query4 = $pdo->query("SELECT * from msg_func ");
 	$res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
 	$linhas1 = @count($res4);
-	
+	$telefones = [];
 	if($linhas1 > 0){
 		for($i=0; $i<$linhas1; $i++){
 			$id_func = @$res4[$i]['funcionario'];
@@ -89,80 +89,93 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 			$res5 = $query5->fetchAll(PDO::FETCH_ASSOC);
 			$linhas2 = @count($res5);
 			$telefone = @$res5[0]['telefone'];
+			$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+			$telefones[] = $telefone_envio;
+	
+			$pdo->query("DELETE FROM msg_func WHERE funcionario = '$id_func' ");
+			
+
+
+		}
+		$telefones_json = json_encode($telefones);
+
+		if($token != "" and $foto ==""){
+
+			$mensagem = $msg_env;
+			$data_agd2 = $data_envio;
+			require("../../apis/agendar.php");
+			
+		}else{
+			$mensagem = $msg_env;
+			$data_agd2 = $data_envio;
+			$arquivo = $foto;
+			require("../../apis/envio_img.php");
+		}
+
+	}elseif($filial == 'todos' and $check == 'Sim'){
+
+		$query2 = $pdo->query("SELECT * from funcionarios where ativo != 'não'");
+		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+		$linhas = @count($res2);
+		$telefones = [];
+		if($linhas > 0){
+			for($i=0; $i<$linhas; $i++){
+				$telefone = @$res2[$i]['telefone'];
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
+	
+				
+	
+			}
+
+			$telefones_json = json_encode($telefones);
 
 			if($token != "" and $foto ==""){
-
-				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+	
 				$mensagem = $msg_env;
 				$data_agd2 = $data_envio;
 				require("../../apis/agendar.php");
 				
 			}else{
-				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 				$mensagem = $msg_env;
 				$data_agd2 = $data_envio;
 				$arquivo = $foto;
 				require("../../apis/envio_img.php");
 			}
 
-			$pdo->query("DELETE FROM msg_func WHERE funcionario = '$id_func' ");
-			
-
-
-		}
-	}elseif($filial == 'todos' and $check == 'Sim'){
-
-		$query2 = $pdo->query("SELECT * from funcionarios where ativo != 'não'");
-		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
-		$linhas = @count($res2);
-		if($linhas > 0){
-			for($i=0; $i<$linhas; $i++){
-				$telefone = @$res2[$i]['telefone'];
-	
-				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
-	
-	
-			}
 		}
 	}elseif($filial != '' and $check == 'Sim'){
 	
 		$query3 = $pdo->query("SELECT * from funcionarios where filial = '$filial' AND ativo != 'não'");
 		$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 		$linhas = @count($res3);
+		$telefones = [];
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
 	
-				if($token != "" and $foto ==""){
 	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
 	
 	
 			}
+
+			$telefones_json = json_encode($telefones);
+
+			if($token != "" and $foto ==""){
+	
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/agendar.php");
+				
+			}else{
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/envio_img.php");
+			}
+
 		}
 	
 	}elseif($filial == 'todos' and $check == 'Não'){
@@ -199,6 +212,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				
 	
 				if($token != "" and $foto ==""){
 	
@@ -236,6 +250,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 			$res5 = $query5->fetchAll(PDO::FETCH_ASSOC);
 			$linhas2 = @count($res5);
 			$telefone = @$res5[0]['telefone'];
+			
 
 			if($token != "" and $foto ==""){
 	
@@ -260,54 +275,66 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		$query2 = $pdo->query("SELECT * from funcionarios where ativo != 'não'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$linhas = @count($res2);
+		$telefones = [];
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res2[$i]['telefone'];
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
 	
-				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
 	
 	
 			}
+			
+			$telefones_json = json_encode($telefones);
+
+			if($token != "" and $foto ==""){
+	
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/agendar.php");
+				
+			}else{
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/envio_img.php");
+			}
+
 		}
 	}elseif($filial != '' and $check == 'Sim'){
 	
 		$query3 = $pdo->query("SELECT * from funcionarios where filial = '$filial' AND ativo != 'não'");
 		$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 		$linhas = @count($res3);
+		$telefones = [];
+
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
 	
-				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
-	
+				
 	
 			}
+
+			$telefones_json = json_encode($telefones);
+
+
+			if($token != "" and $foto ==""){
+	
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/agendar.php");
+				
+			}else{
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/envio_img.php");
+			}
+
 		}
 	
 	}elseif($filial == 'todos' and $check == 'Não'){
@@ -318,6 +345,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				
 	
 				if($token != "" and $foto ==""){
 	
@@ -344,6 +372,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				
 	
 				if($token != "" and $foto ==""){
 	
@@ -376,54 +405,64 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		$query2 = $pdo->query("SELECT * from funcionarios where ativo != 'não'");
 		$res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 		$linhas = @count($res2);
+		$telefones = [];
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res2[$i]['telefone'];
-	
-				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
 	
 	
 			}
+
+			$telefones_json = json_encode($telefones);
+
+
+			if($token != "" and $foto ==""){
+	
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/agendar.php");
+				
+			}else{
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/envio_img.php");
+			}
+
 		}
 	}elseif($filial != 'todos' and $check == 'Sim'){
 	
 		$query3 = $pdo->query("SELECT * from funcionarios where filial = '$filial' AND ativo != 'não'");
 		$res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
 		$linhas = @count($res3);
+		$telefones = [];
+
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
-	
-				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					require("../../apis/agendar.php");
-					
-				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
-					$mensagem = $msg_env;
-					$data_agd2 = $data_envio;
-					$arquivo = $foto;
-					require("../../apis/envio_img.php");
-				}
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				$telefones[] = $telefone_envio;
 	
 	
 			}
+			
+			$telefones_json = json_encode($telefones);
+
+			if($token != "" and $foto ==""){
+	
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				require("../../apis/agendar.php");
+				
+			}else{
+				$mensagem = $msg_env;
+				$data_agd2 = $data_envio;
+				$arquivo = $foto;
+				require("../../apis/envio_img.php");
+			}
+
 		}
 	
 	}elseif($filial == 'todos' and $check == 'Não'){
@@ -434,6 +473,7 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
+				
 	
 				if($token != "" and $foto ==""){
 	
@@ -460,22 +500,24 @@ if($check_funcionario =='Sim' and $check == 'Sim' ){
 		if($linhas > 0){
 			for($i=0; $i<$linhas; $i++){
 				$telefone = @$res3[$i]['telefone'];
-	
+				$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
+				
 				if($token != "" and $foto ==""){
-	
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 					$mensagem = $msg_env;
 					require("../../apis/texto.php");
 					
 				}else{
-					$telefone_envio = '55'.preg_replace('/[ ()-]+/' , '' , $telefone);
 					$mensagem = $msg_env;
 					$arquivo = $foto;
 					require("../../apis/texto_img.php");
-				}
-	
+				}	
+			
 	
 			}
+
+			
+			
+
 		}
 	
 

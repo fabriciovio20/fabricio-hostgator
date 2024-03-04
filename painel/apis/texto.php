@@ -1,6 +1,8 @@
 <?php
 
+
 $curl = curl_init();
+
 curl_setopt_array($curl, array(
   CURLOPT_URL => 'https://chatbot.menuia.com/api/create-message',
   CURLOPT_RETURNTRANSFER => true,
@@ -22,5 +24,6 @@ curl_setopt_array($curl, array(
   $response = curl_exec($curl);
   
   curl_close($curl);
+  
 
 ?>
